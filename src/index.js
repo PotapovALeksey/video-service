@@ -1,21 +1,26 @@
 import React from 'react';
+import { Provider } from 'mobx-react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import DataStore from './stores/Data';
-import App from './App';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { configure } from 'mobx';
+import Home from './pages/Home/Home';
+import rootStore from './stores/RootStore';
 import './grid.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+configure({ enforceActions: 'observed' });
 
 let token;
 
 if (document.getElementById('token')) {
   token = document.getElementById('token').getAttribute('content');
-  console.log(token);
   ReactDOM.render(
     <BrowserRouter>
-      <App />
+      <Provider store={rootStore}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+        </Switch>
+      </Provider>
     </BrowserRouter>,
     document.getElementById('root'),
   );

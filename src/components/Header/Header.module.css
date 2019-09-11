@@ -9,6 +9,12 @@
   display: none;
 }
 
+.iconLeft {
+  position: absolute;
+  left: 172px;
+  top: 11px;
+}
+
 .logoWrap {
   display: flex;
   justify-content: space-between;

@@ -1,15 +1,15 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import ButtonLink from "../SharedComponents/ButtonLink/ButtonLink";
-import img from "../../assets/img";
-import styles from "./FeaturedVideos.module.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
+import img from '../../assets/img';
+import styles from './FeaturedVideos.module.css';
 
 const FeaturedVideos = ({ videos }) => {
   return (
     <div className={styles.wrap}>
       <div className={styles.top}>
         <h3 className={styles.title}>Featured Videos</h3>
-        <ButtonLink label={"more"} link={"/"} />
+        <ButtonLink label={'more'} link={'/'} />
       </div>
       <div className={styles.content}>
         <div className={styles.columnLeft}>
@@ -37,10 +37,16 @@ const FeaturedVideos = ({ videos }) => {
               </NavLink>
               <div className={styles.gradient}></div>
               <div className={styles.blockText}>
-                <NavLink to={videos[1].link} className={styles.imgTitle}>
+                <NavLink
+                  to={videos[1].link}
+                  className={`${styles.imgTitle} ${styles.imgTitleMin}`}
+                >
                   {videos[1].name}
                 </NavLink>
-                <NavLink to={videos[1].link} className={styles.imgText}>
+                <NavLink
+                  to={videos[1].link}
+                  className={`${styles.imgText} ${styles.hiddenMobile}`}
+                >
                   <span className={styles.text}>{videos[1].views} views</span>
                   <span className={styles.text}>{videos[1].created_at} </span>
                 </NavLink>
@@ -54,10 +60,16 @@ const FeaturedVideos = ({ videos }) => {
               </NavLink>
               <div className={styles.gradient}></div>
               <div className={styles.blockText}>
-                <NavLink to={videos[2].link} className={styles.imgTitle}>
+                <NavLink
+                  to={videos[2].link}
+                  className={`${styles.imgTitle} ${styles.imgTitleMin}`}
+                >
                   {videos[2].name}
                 </NavLink>
-                <NavLink to={videos[2].link} className={styles.imgText}>
+                <NavLink
+                  to={videos[2].link}
+                  className={`${styles.imgText} ${styles.hiddenMobile}`}
+                >
                   <span className={styles.text}>{videos[2].views} views</span>
                   <span className={styles.text}>{videos[2].created_at} </span>
                 </NavLink>

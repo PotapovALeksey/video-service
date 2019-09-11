@@ -1,6 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 
-class Store {
+class ViewStore {
   @observable openedMenu = false;
   @observable openedSidebar = false;
 
@@ -11,14 +11,12 @@ class Store {
     return toJS(this.openedSidebar);
   }
 
-  @action toggleMenu() {
+  @action.bound toggleMenu() {
     this.openedMenu = !this.openedMenu;
   }
-  @action toggleSidebar() {
+  @action.bound toggleSidebar() {
     this.openedSidebar = !this.openedSidebar;
   }
 }
-
-const ViewStore = new Store();
 
 export default ViewStore;

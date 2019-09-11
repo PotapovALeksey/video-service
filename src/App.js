@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Provider } from 'mobx-react';
 
 import { observer } from 'mobx-react';
 import { configure } from 'mobx';
 
 import Home from './pages/Home/Home';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import LeftSidebar from './components/LeftSidebar/LeftSidebar';
-import RightSidebar from './components/RightSidebar/RightSidebar';
-import SidebarMobileMenu from './components/SidebarMobileMenu/SidebarMobileMenu';
-
-import ViewStore from './stores/Views';
-import DataStore from './stores/Data';
 
 configure({ enforceActions: 'observed' });
+
 @observer
 class App extends Component {
+  state = {
+    load: true,
+  };
+
+  async componentDidMount() {
+    const { default: rootStore } = await import('./stores/RootReducer');
+
+    this.setState({
+      load: false,
+      rootStore: new rootStore(),
+    });
+  }
+
   render() {
+    const { rootStore, load } = this.state;
     return (
-      <>
-        <Header store={ViewStore} />
-        <div className="wrap">
-          <LeftSidebar viewStore={ViewStore} dataStore={DataStore} />
-          <Switch>
-            <Route path="/" exact component={Home} />
-          </Switch>
-          <RightSidebar />
-        </div>
-        <Footer />
-        <SidebarMobileMenu store={ViewStore} />
-      </>
+      load && (
+        <>
+          <Provider store={rootStore}>
+            <Switch>
+              <Route path="/" exact component={Home} />
+            </Switch>
+          </Provider>
+        </>
+      )
     );
   }
 }

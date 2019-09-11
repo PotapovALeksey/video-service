@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -28,12 +27,8 @@ const Planshet = ({ children }) => {
   return isDesktop ? children : null;
 };
 
-@observer
 class Header extends Component {
   state = { inputValue: '', isInputEnable: false };
-
-  componentDidMount() {}
-  componentDidUpdate() {}
 
   onChange = e => this.setState({ inputValue: e.target.value });
 
@@ -44,7 +39,7 @@ class Header extends Component {
 
   onClickToggleMenu = e => this.props.store.toggleMenu();
 
-  onCliclToggleSidebar = () => this.props.store.toggleSidebar();
+  onCliclToggleSidebar = () => this.props.toggleSidebar();
 
   render() {
     const { inputValue, isInputEnable } = this.state;
@@ -169,7 +164,7 @@ class Header extends Component {
         <Sticky top={0} bottomBoundary={9000}>
           <header className={styles.mobileWrap}>
             <div className={styles.mobileLeft}>
-              <div
+              {/* <div
                 className={`${styles.mobileBlock} ${styles.mobileBlockIcon}`}
                 onClick={this.onClickToggleMenu}
               >
@@ -180,7 +175,7 @@ class Header extends Component {
                     icon={faBars}
                   />
                 </span>
-              </div>
+              </div> */}
               <div
                 onClick={this.onCliclToggleSidebar}
                 className={`${styles.mobileBlock} ${styles.mobileBlockIcon}`}
@@ -214,7 +209,9 @@ class Header extends Component {
                     </form>
                   )}
                   <FontAwesomeIcon
-                    className={styles.iconMobileInput}
+                    className={`${styles.iconMobileInput} ${
+                      isInputEnable ? styles.iconLeft : null
+                    }`}
                     icon={faSearch}
                     onClick={this.handleInputEnable}
                   />

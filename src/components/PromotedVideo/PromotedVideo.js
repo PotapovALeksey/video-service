@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
-import styles from "./PromotedVideo.module.css";
-import img from "../../assets/img/features.jpg";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import styles from './PromotedVideo.module.css';
+import img from '../../assets/img/features.jpg';
 
 const PromotedVideo = ({ promoted }) => (
   <div className={styles.wrap}>
@@ -24,8 +24,8 @@ PromotedVideo.propTypes = {
   promoted: PropTypes.shape({
     link: PropTypes.string.isRequired,
     views: PropTypes.number.isRequired,
-    created_at: PropTypes.string.isRequired
-  })
+    created_at: PropTypes.string.isRequired,
+  }),
 };
 
 export default PromotedVideo;

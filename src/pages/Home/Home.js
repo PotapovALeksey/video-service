@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { inject, observer } from 'mobx-react';
+
 import FeaturedVideos from '../../components/FeaturedVideos/FeaturedVideos';
-import styles from './Home.module.css';
 import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
 import VideosList from '../../components/VideosList/VideosList';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
+import RightSidebar from '../../components/RightSidebar/RightSidebar';
+
+import styles from './Home.module.css';
 
 const feturedVideo = [
   {
@@ -368,19 +374,73 @@ const freeVideo = [
   },
 ];
 
-export default class Home extends Component {
+@inject('store')
+@observer
+class Home extends Component {
+  componentDidMount() {
+    this.handleGetAllData();
+  }
+
+  handleGetAllData = () => {
+    const {
+      getTopCategories,
+      getCategories,
+      getPromoted,
+      getTopVideos,
+      getLatests,
+    } = this.props.store.stores.data;
+
+    getTopCategories();
+    getCategories();
+    getPromoted();
+    getTopVideos();
+    getLatests();
+  };
   render() {
+    const {
+      topCategories,
+      categories,
+      promoted,
+      topVideos,
+      latests,
+    } = this.props.store.stores.data;
+
+    const { isOpenedSidebar, toggleSidebar } = this.props.store.stores.view;
+
+    const isRender =
+      topCategories && categories && promoted && topVideos && latests;
+
     return (
-      <div className={styles.content}>
-        <FeaturedVideos videos={feturedVideo} />
-        <VideosSlider videos={newsVideo} title={"What's new"} />
-        <VideosList
-          videos={freeVideo}
-          title={'Free videos'}
-          buttonLabel={'View all'}
-          buttonLink={'/'}
-        />
-      </div>
+      isRender && (
+        <>
+          <Header toggleSidebar={toggleSidebar} />
+          <div className="wrap">
+            <LeftSidebar
+              topCategories={topCategories}
+              categories={categories}
+              isOpenedSidebar={isOpenedSidebar}
+            />
+            <div className={styles.content}>
+              <FeaturedVideos videos={feturedVideo} />
+              <VideosSlider videos={newsVideo} title={"What's new"} />
+              <VideosList
+                videos={freeVideo}
+                title={'Free videos'}
+                buttonLabel={'View all'}
+                buttonLink={'/'}
+              />
+            </div>
+            <RightSidebar
+              promoted={promoted}
+              latestVideos={latests}
+              topVideos={topVideos}
+            />
+          </div>
+          <Footer />
+          {/* <SidebarMobileMenu store={ViewStore} /> */}
+        </>
+      )
     );
   }
 }
+export default Home;

@@ -1,14 +1,14 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import VideoImage from "../SharedComponents/VideoImage/VideoImage";
-import ViewsAndComments from "../SharedComponents/ViewsAndComments/ViewsAndComments";
-import ButtonLink from "../SharedComponents/ButtonLink/ButtonLink";
-import styles from "./VideosList.module.css";
-import img from "../../assets/img";
-import PropTypes from "prop-types";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import VideoImage from '../SharedComponents/VideoImage/VideoImage';
+import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
+import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
+import styles from './VideosList.module.css';
+import img from '../../assets/img';
+import PropTypes from 'prop-types';
+// import Container from "react-bootstrap/Container";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
   <div className={styles.wrap}>
@@ -17,15 +17,15 @@ const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
       {buttonLink && <ButtonLink label={buttonLabel} link={buttonLink} />}
     </div>
     {videos && (
-      <Container fluid={true} className={styles.list}>
+      <div className={styles.list}>
         <Row>
           {videos.map(video => (
             <Col
-              // xl={4}
-              // lg={4}
+              xl={3}
+              // lg={3}
               md={4}
               sm={6}
-              xs={12}
+              xs={6}
               className={styles.item}
               key={video.link}
             >
@@ -49,7 +49,7 @@ const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
             </Col>
           ))}
         </Row>
-      </Container>
+      </div>
     )}
   </div>
 );
@@ -61,10 +61,10 @@ VideosList.propTypes = {
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,
-      duration: PropTypes.string.isRequired
-    })
+      duration: PropTypes.string.isRequired,
+    }),
   ).isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default VideosList;
