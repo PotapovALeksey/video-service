@@ -1,0 +1,46 @@
+.wrap {
+  padding: 30px 22px 30px 21px;
+  background-color: rgba(60, 60, 60, 1);
+}
+.title {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.imgTitle {
+  font-size: 14px;
+}
+.wrapButton {
+  position: relative;
+}
+.item {
+  padding: 0 16px;
+}
+.slickButton,
+.slickButton {
+  position: absolute;
+  color: rgba(153, 153, 153, 1);
+  font-size: 15px;
+  background-color: rgba(68, 68, 68, 1);
+  border: 1px solid rgba(102, 102, 102, 1);
+  cursor: pointer;
+  padding: 4px 15px;
+  top: -3px;
+  transition: 200ms all ease;
+  outline: none;
+}
+
+.slickButton:hover {
+  background-color: rgba(80, 80, 80, 1);
+  color: rgba(255, 255, 255, 1);
+}
+.slickButton {
+  position: absolute;
+}
+
+.slickPrev {
+  left: 135px;
+}
+.slickNext {
+  left: 185px;
+}

@@ -1,0 +1,88 @@
+/*!
+ * Bootstrap Grid v4.0.0 (https://getbootstrap.com)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+@-ms-viewport {
+  width: device-width;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+body {
+  font-family: 'Helvetica', Arial, sans-serif;
+  color: #464646;
+  margin: 0;
+  font-size: 16px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.wrap {
+  display: flex;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* dissable native slider button */
+button.slick-arrow {
+  display: none;
+  left: 0;
+  z-index: -23;
+}
+/* SHARED TEXT */
+
+.miniText {
+  font-size: 12px;
+  color: rgba(153, 153, 153, 1);
+}
+.standartTitleBlack {
+  font-size: 16px;
+  margin: 0;
+  padding-bottom: 20px;
+  padding-top: 3px;
+}
+
+.imgTitleB,
+.imgTitleW {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  display: inline-block;
+  text-decoration: none;
+
+  font-weight: 700;
+}
+.imgTitleB {
+  color: rgba(34, 34, 34, 1);
+}
+.imgTitleW {
+  color: #fff;
+}
+.imgTitleB:hover,
+.imgTitleW:hover {
+  text-decoration: underline;
+}
+
+/* SLIDERS */
+
+.popularVideos .slick-list {
+  margin: 0 -8px;
+}
+
+/* Sticky header menu */
+div.sticky-inner-wrapper {
+  z-index: 99;
+}

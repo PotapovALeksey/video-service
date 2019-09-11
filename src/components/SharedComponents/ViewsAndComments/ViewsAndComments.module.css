@@ -1,0 +1,13 @@
+.views::after {
+  content: "/";
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.icon {
+  margin-right: 5px;
+  font-size: 15px;
+  vertical-align: -3px;
+}
+.iconWrap {
+}

@@ -1,0 +1,42 @@
+.wrap {
+}
+
+.list {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  font-size: 14px;
+  margin-bottom: 13px;
+  font-weight: 700;
+}
+.link,
+.linkF {
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 200ms ease;
+  margin: 3px;
+}
+.link {
+  color: rgba(102, 102, 102, 1);
+}
+.link:hover {
+  color: rgba(153, 153, 153, 1);
+}
+.linkF {
+  color: rgba(153, 153, 153, 1);
+}
+.linkF:hover {
+  color: #fff;
+}
+.icon {
+  margin-right: 10px;
+}
+.count {
+  color: rgba(153, 153, 153, 1);
+}
+.countF {
+  color: rgba(102, 102, 102, 1);
+}

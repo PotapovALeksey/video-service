@@ -1,0 +1,13 @@
+.rightSidebar {
+  background-color: rgba(242, 242, 242, 1);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  min-width: 340px;
+}
+@media (max-width: 1023px) {
+  .rightSidebar {
+    display: none;
+  }
+}

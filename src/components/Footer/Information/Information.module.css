@@ -1,0 +1,16 @@
+.item {
+  font-size: 14px;
+  margin-bottom: 13px;
+  font-weight: 700;
+}
+.link {
+  color: rgba(153, 153, 153, 1);
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+.link:hover {
+  color: #fff;
+}
+.icon {
+  margin-right: 10px;
+}

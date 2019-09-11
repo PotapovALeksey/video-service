@@ -1,0 +1,51 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import styles from "./PopularVideos.module.css";
+import image from "../../../assets/img/min.jpg";
+
+const PopularVideos = ({ videos }) => (
+  <ul className={styles.list}>
+    {videos &&
+      videos.map(video => (
+        <li key={video.name} className={styles.item}>
+          <div className={styles.picture}>
+            <NavLink className={styles.link} to={`/videos/${video.link}`}>
+              <img src={image} alt={video.name} className={styles.img} />
+            </NavLink>
+          </div>
+          <div className={styles.content}>
+            <h3 className={styles.title}>
+              <NavLink
+                to={`/videos/${video.link}`}
+                className={styles.titleLink}
+              >
+                {video.name}
+              </NavLink>
+            </h3>
+            <div>
+              <span className={styles.text}>{video.videos_count} videos</span>
+              <span className={styles.text}>
+                <FontAwesomeIcon className={styles.icon} icon={faEye} />
+                {video.views_sum} views
+              </span>
+            </div>
+          </div>
+        </li>
+      ))}
+  </ul>
+);
+PopularVideos.propTypes = {
+  videos: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      videos_count: PropTypes.number.isRequired,
+      views_sum: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired
+};
+
+export default PopularVideos;

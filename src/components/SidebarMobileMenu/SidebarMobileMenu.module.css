@@ -1,0 +1,112 @@
+.wrap {
+  width: 300px;
+  background-color: #000;
+  height: 100vh;
+  padding: 30px 0;
+}
+.backDrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.topBtn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.topIcon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.text {
+  margin-top: 2px;
+}
+.menu {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.item {
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.menuIcon {
+  margin-right: 7px;
+}
+.link {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+  width: 70%;
+  padding: 15px 20px;
+  transition: all 250ms ease;
+}
+.link:hover {
+  color: rgba(102, 102, 102, 1);
+}
+.openSub {
+  width: 30%;
+  text-align: center;
+  height: 47px;
+  padding-top: 7px;
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+.openSub:hover {
+  color: rgba(102, 102, 102, 1);
+}
+
+.openSub:hover .subMenu {
+  display: block;
+}
+.subMenu {
+  position: absolute;
+  font-weight: bold;
+  display: none;
+  text-decoration: none;
+  top: 100%;
+  width: 100%;
+  z-index: 22;
+  left: 0;
+  text-align: left;
+}
+.subItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.subLink {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  position: relative;
+  padding: 15px 15px 15px 33px;
+  display: block;
+  transition: all 250ms ease;
+  background: #444444;
+  cursor: pointer;
+}
+.subLink:hover {
+  color: #9a9a9a;
+}
+.subLink::before {
+  content: '-';
+  position: absolute;
+  left: 21px;
+}

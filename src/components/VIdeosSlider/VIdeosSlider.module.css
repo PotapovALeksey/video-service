@@ -1,0 +1,53 @@
+.wrap {
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(215, 215, 215, 1);
+  margin-bottom: 20px;
+}
+
+.imgTitle {
+  font-size: 14px;
+}
+.title {
+  margin: 0;
+  color: rgba(153, 153, 153, 1);
+  font-size: 24px;
+}
+.text {
+  line-height: 1.6;
+  font-size: 14px;
+  color: rgba(102, 102, 102, 1);
+  margin-bottom: 6px;
+}
+.item {
+  padding: 0 10px;
+}
+.slickList {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.wrapButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.slickButton {
+  color: #737373;
+  font-size: 18px;
+  background: #f3f3f3;
+  cursor: pointer;
+  padding: 3px 12px;
+  top: -3px;
+  transition: 200ms all ease;
+  outline: none;
+  border: none;
+}
+.slickPrev {
+  margin-right: 10px;
+}
+.slickButton:hover {
+  background-color: rgba(153, 153, 153, 1);
+  color: rgba(255, 255, 255, 1);
+}

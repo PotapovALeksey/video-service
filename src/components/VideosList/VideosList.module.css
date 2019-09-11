@@ -1,0 +1,22 @@
+.title {
+  margin: 0;
+  color: rgba(153, 153, 153, 1);
+  font-size: 24px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.imgTitle {
+  font-size: 14px;
+  display: block;
+}
+.list {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.item {
+  margin-bottom: 30px;
+}

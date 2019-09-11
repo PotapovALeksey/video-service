@@ -1,0 +1,9 @@
+.like::after {
+  content: "/";
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.icon {
+  margin-right: 5px;
+}
