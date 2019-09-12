@@ -5,6 +5,9 @@ const CATEGORIES_PROMOTED = `${CATEGORIES}/promoted`;
 const CATEGORIES_FEATURED = `${CATEGORIES}/featured`;
 const CATEGORIES_LATEST = `${CATEGORIES}/latest`;
 const CATEGORIES_TOP = `${CATEGORIES}/top`;
+const CATEGORIES_WHATS_NEW = `${CATEGORIES}/whats-new`;
+const CATEGORIES_FREE = `${CATEGORIES}/free`;
+const CATEGORIES_POPULAR = `${CATEGORIES}/popular`;
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
 
 const httpClient = axios.create({
@@ -95,6 +98,45 @@ async function getTopVideos() {
   return data;
 }
 
+/** GET category "whats-new" videos from API */
+async function getWhatsNew(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_WHATS_NEW, params);
+
+  return data;
+}
+
+/** GET category "free" videos from API */
+async function getFreeVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_FREE, params);
+
+  return data;
+}
+
+/** GET category "popular" videos from API */
+async function getPopularVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_POPULAR, params);
+
+  return data;
+}
+
 export {
   getTopCategories,
   getCategories,
@@ -102,4 +144,7 @@ export {
   getPromoted,
   getLatests,
   getTopVideos,
+  getWhatsNew,
+  getFreeVideos,
+  getPopularVideos,
 };

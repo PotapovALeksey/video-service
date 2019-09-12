@@ -37,7 +37,9 @@ class Header extends Component {
 
   onSubmit = e => e.preventDefault();
 
-  onClickToggleMenu = e => this.props.store.toggleMenu();
+  onModalOpen = () => this.props.openModal();
+
+  // onClickToggleMenu = e => this.props.store.toggleMenu();
 
   onCliclToggleSidebar = () => this.props.toggleSidebar();
 
@@ -153,10 +155,10 @@ class Header extends Component {
             </div>
             <div className={styles.right}>
               <div className={styles.stickyBlock}>
-                <a href="/" className={styles.loginLink}>
+                <div className={styles.loginLink} onClick={this.onModalOpen}>
                   <FontAwesomeIcon className={styles.iconMenu} icon={faUser} />
                   Login
-                </a>
+                </div>
               </div>
             </div>
           </header>
@@ -220,10 +222,10 @@ class Header extends Component {
             </div>
             <div className={styles.mobileRight}>
               <div className={styles.mobileBlock}>
-                <a href="/" className={styles.loginLink}>
+                <div className={styles.loginLink} onClick={this.onModalOpen}>
                   <FontAwesomeIcon className={styles.iconMenu} icon={faUser} />
                   Login
-                </a>
+                </div>
               </div>
             </div>
           </header>

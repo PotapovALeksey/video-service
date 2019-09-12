@@ -79,6 +79,7 @@
   color: rgba(245, 235, 78, 1);
   font-weight: 700;
   transition: all 200ms ease;
+  cursor: pointer;
 }
 .loginLink:hover {
   color: rgba(153, 153, 153, 1);

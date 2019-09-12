@@ -8,6 +8,9 @@ class DataStore {
   @observable _promoted = null;
   @observable _latests = null;
   @observable _topVideos = null;
+  @observable _whatsNew = null;
+  @observable _freeVideos = null;
+  @observable _populars = null;
 
   @computed get topCategories() {
     return toJS(this._topCategories);
@@ -33,6 +36,31 @@ class DataStore {
     return toJS(this._latests);
   }
 
+  @computed get whatsNew() {
+    return toJS(this._whatsNew);
+  }
+
+  @computed get freeVideos() {
+    return toJS(this._freeVideos);
+  }
+
+  @computed get populars() {
+    return toJS(this._populars);
+  }
+
+  @action.bound
+  clear = async () => {
+    this._topCategories = null;
+    this._categories = null;
+    this._featureds = null;
+    this._promoted = null;
+    this._latests = null;
+    this._topVideos = null;
+    this._whatsNew = null;
+    this._freeVideos = null;
+    this._populars = null;
+  };
+
   @action.bound
   getTopCategories = async () => {
     const { data } = await httpClient.getTopCategories();
@@ -56,7 +84,7 @@ class DataStore {
     const { data } = await httpClient.getFeatureds();
 
     runInAction(() => {
-      this._categories = data;
+      this._featureds = data;
     });
   };
 
@@ -84,6 +112,33 @@ class DataStore {
 
     runInAction(() => {
       this._latests = data;
+    });
+  };
+
+  @action.bound
+  getWhatsNew = async () => {
+    const { data } = await httpClient.getWhatsNew();
+
+    runInAction(() => {
+      this._whatsNew = data;
+    });
+  };
+
+  @action.bound
+  getFreeVideos = async () => {
+    const { data } = await httpClient.getFreeVideos();
+
+    runInAction(() => {
+      this._freeVideos = data;
+    });
+  };
+
+  @action.bound
+  getPopularVideos = async () => {
+    const { data } = await httpClient.getPopularVideos();
+
+    runInAction(() => {
+      this._populars = data;
     });
   };
 }
