@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import FeaturedVideos from '../../components/FeaturedVideos/FeaturedVideos';
 import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
-import VideosList from '../../components/VideosList/VideosList';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
@@ -11,11 +9,11 @@ import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 
-import styles from './Home.module.css';
+import styles from './Categories.module.css';
 
 @inject('store')
 @observer
-class Home extends Component {
+class Categories extends Component {
   async componentDidMount() {
     await this.handleClear();
     this.handleGetAllData();
@@ -23,22 +21,11 @@ class Home extends Component {
   handleClear = () => this.props.store.stores.data.clear();
 
   handleGetAllData = () => {
-    this.props.store.stores.data.handlGetMainPage();
+    const { handleGetCategoriesPage } = this.props.store.stores.data;
+    handleGetCategoriesPage();
   };
 
   render() {
-    const {
-      topCategories,
-      categories,
-      promotedVideo,
-      topVideos,
-      latestVideos,
-      featuredVideos,
-      whatsNewVideos,
-      freeVideos,
-      popularVideos,
-    } = this.props.store.stores.data;
-
     const {
       isOpenedSidebar,
       toggleSidebar,
@@ -47,17 +34,36 @@ class Home extends Component {
       isOpenedModal,
     } = this.props.store.stores.view;
 
+    const {
+      topCategories,
+      categories,
+      promotedVideo,
+      topVideos,
+      latestVideos,
+      whatsNewVideos,
+      popularVideos,
+      gameVideos,
+      kombatVideos,
+      movieVideos,
+      musicVideos,
+      newsVideos,
+      freeVideos,
+    } = this.props.store.stores.data;
+
     const isRender =
       topCategories &&
       categories &&
       promotedVideo &&
       topVideos &&
       latestVideos &&
-      featuredVideos &&
       whatsNewVideos &&
-      freeVideos &&
-      popularVideos;
-
+      popularVideos &&
+      gameVideos &&
+      kombatVideos &&
+      movieVideos &&
+      musicVideos &&
+      newsVideos &&
+      freeVideos;
 
     return isRender ? (
       <>
@@ -70,13 +76,40 @@ class Home extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
-            <FeaturedVideos videos={featuredVideos} />
-            <VideosSlider videos={whatsNewVideos} title={"What's new"} />
-            <VideosList
+            <VideosSlider
+              videos={whatsNewVideos}
+              title={"What's new"}
+              link={'categories/whats-new'}
+            />
+            <VideosSlider
+              videos={gameVideos}
+              title={'Game'}
+              link={'categories/game'}
+            />
+            <VideosSlider
+              videos={kombatVideos}
+              title={'Kombat'}
+              link={'categories/kombat'}
+            />
+            <VideosSlider
+              videos={movieVideos}
+              title={'Movie'}
+              link={'categories/movie'}
+            />
+            <VideosSlider
+              videos={musicVideos}
+              title={'Music'}
+              link={'categories/music'}
+            />
+            <VideosSlider
+              videos={newsVideos}
+              title={'News'}
+              link={'categories/news'}
+            />
+            <VideosSlider
               videos={freeVideos}
-              title={'Free videos'}
-              buttonLabel={'View all'}
-              buttonLink={'/'}
+              title={'Free'}
+              link={'categories/free'}
             />
           </div>
           <RightSidebar
@@ -98,4 +131,4 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+export default Categories;

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { configure } from 'mobx';
-import Home from './pages/Home/Home';
 import rootStore from './stores/RootStore';
+import App from './App';
 import './grid.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+
 configure({ enforceActions: 'observed' });
 
 let token;
@@ -17,9 +18,7 @@ if (document.getElementById('token')) {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={rootStore}>
-        <Switch>
-          <Route path="/" exact component={Home} />
-        </Switch>
+        <App />
       </Provider>
     </BrowserRouter>,
     document.getElementById('root'),

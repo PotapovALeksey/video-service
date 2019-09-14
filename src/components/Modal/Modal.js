@@ -7,6 +7,11 @@ export default class Modal extends Component {
     onClose: PropTypes.func.isRequired,
   };
 
+  state = {
+    email: '',
+    password: '',
+  };
+
   backdropRef = createRef();
 
   componentDidMount() {
@@ -16,6 +21,12 @@ export default class Modal extends Component {
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyPress);
   }
+
+  onChange = ({ target }) => {
+    const { name, value } = target;
+
+    this.setState({ [name]: value });
+  };
 
   handleKeyPress = e => {
     if (e.code !== 'Escape') return;
@@ -32,13 +43,36 @@ export default class Modal extends Component {
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div
         className={styles.backDrop}
         ref={this.backdropRef}
         onClick={this.handleBackdropClick}
       >
-        <div className={styles.content}></div>
+        <div className={styles.content}>
+          <form className={styles.form}>
+            <input
+              placeholder="Email"
+              onChange={this.onChange}
+              name="email"
+              type="text"
+              className={styles.input}
+              defaultValue={email}
+            />
+            <input
+              placeholder="Password"
+              onChange={this.onChange}
+              name="password"
+              type="text"
+              className={styles.input}
+              defaultValue={password}
+            />
+            <button type="submit" className={styles.button}>
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

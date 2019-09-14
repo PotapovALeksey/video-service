@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import FeaturedVideos from '../../components/FeaturedVideos/FeaturedVideos';
-import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
 import VideosList from '../../components/VideosList/VideosList';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -11,20 +9,22 @@ import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 
-import styles from './Home.module.css';
+import styles from './Category.module.css';
 
 @inject('store')
 @observer
-class Home extends Component {
+class Category extends Component {
   async componentDidMount() {
+    const { id } = this.props.match.params;
+    console.log(id, 'id');
     await this.handleClear();
-    this.handleGetAllData();
+    this.handleGetAllData(id);
   }
+
   handleClear = () => this.props.store.stores.data.clear();
 
-  handleGetAllData = () => {
-    this.props.store.stores.data.handlGetMainPage();
-  };
+  handleGetAllData = category =>
+    this.props.store.stores.data.handleGetCategoryPage(category);
 
   render() {
     const {
@@ -33,9 +33,7 @@ class Home extends Component {
       promotedVideo,
       topVideos,
       latestVideos,
-      featuredVideos,
-      whatsNewVideos,
-      freeVideos,
+      categoryVideos,
       popularVideos,
     } = this.props.store.stores.data;
 
@@ -53,11 +51,12 @@ class Home extends Component {
       promotedVideo &&
       topVideos &&
       latestVideos &&
-      featuredVideos &&
-      whatsNewVideos &&
-      freeVideos &&
+      (categoryVideos && categoryVideos.length !== 0) &&
       popularVideos;
 
+    const title = this.props.match.params.id;
+
+    console.log('render', categoryVideos);
 
     return isRender ? (
       <>
@@ -70,14 +69,7 @@ class Home extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
-            <FeaturedVideos videos={featuredVideos} />
-            <VideosSlider videos={whatsNewVideos} title={"What's new"} />
-            <VideosList
-              videos={freeVideos}
-              title={'Free videos'}
-              buttonLabel={'View all'}
-              buttonLink={'/'}
-            />
+            <VideosList videos={categoryVideos} title={title} />
           </div>
           <RightSidebar
             promoted={promotedVideo}
@@ -91,11 +83,10 @@ class Home extends Component {
           categories={categories}
           popularCategories={topCategories}
         />
-        {/* <SidebarMobileMenu store={ViewStore} /> */}
       </>
     ) : (
       <Loader load={!isRender} />
     );
   }
 }
-export default Home;
+export default Category;

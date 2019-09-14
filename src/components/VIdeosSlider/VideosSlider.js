@@ -1,18 +1,20 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
-  faChevronLeft
-} from "@fortawesome/free-solid-svg-icons";
-import VideoImage from "../SharedComponents/VideoImage/VideoImage";
-import ViewsAndComments from "../SharedComponents/ViewsAndComments/ViewsAndComments";
-import img from "../../assets/img";
-import styles from "./VIdeosSlider.module.css";
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
+
+import Button from '../SharedComponents/ButtonLink/ButtonLink';
+import VideoImage from '../SharedComponents/VideoImage/VideoImage';
+import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
+import img from '../../assets/img';
+import styles from './VIdeosSlider.module.css';
 
 export default class VideosSlider extends React.Component {
   settings = {
@@ -25,16 +27,16 @@ export default class VideosSlider extends React.Component {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 3
-        }
+          slidesToShow: 3,
+        },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2
-        }
-      }
-    ]
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   slider = React.createRef();
@@ -47,12 +49,15 @@ export default class VideosSlider extends React.Component {
   };
 
   render() {
-    const { videos, title } = this.props;
+    const { videos, title, link } = this.props;
 
     return (
       <div className={`${styles.wrap}`}>
         <div className={styles.wrapButton}>
-          <h4 className={styles.title}>{title}</h4>
+          <div className={styles.titleWrap}>
+            <h4 className={styles.title}>{title}</h4>
+            {link && <Button label={'Show all'} link={link} />}
+          </div>
           <div className={styles.buttonWrap}>
             <button
               className={`${styles.slickButton} ${styles.slickPrev}`}
@@ -114,8 +119,8 @@ VideosSlider.propTypes = {
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,
-      duration: PropTypes.string.isRequired
-    })
+      duration: PropTypes.string.isRequired,
+    }),
   ).isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };

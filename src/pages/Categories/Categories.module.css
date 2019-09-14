@@ -1,0 +1,12 @@
+.content {
+  padding: 40px;
+  border-left: 1px solid rgba(204, 204, 204, 1);
+  border-right: 1px solid rgba(204, 204, 204, 1);
+  max-width: 100%;
+  min-width: 320px;
+}
+@media (max-width: 1250px) {
+  .content {
+    padding: 40px 20px;
+  }
+}

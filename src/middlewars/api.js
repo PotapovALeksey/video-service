@@ -8,6 +8,13 @@ const CATEGORIES_TOP = `${CATEGORIES}/top`;
 const CATEGORIES_WHATS_NEW = `${CATEGORIES}/whats-new`;
 const CATEGORIES_FREE = `${CATEGORIES}/free`;
 const CATEGORIES_POPULAR = `${CATEGORIES}/popular`;
+const CATEGORIES_GAME = `${CATEGORIES}/game`;
+const CATEGORIES_KOMBAT = `${CATEGORIES}/kombat`;
+const CATEGORIES_MUSIC = `${CATEGORIES}/music`;
+const CATEGORIES_MOVIE = `${CATEGORIES}/movie`;
+const CATEGORIES_NEWS = `${CATEGORIES}/news`;
+const CATEGORY_ID = category => `${CATEGORIES}/${category}`;
+
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
 
 const httpClient = axios.create({
@@ -47,7 +54,7 @@ async function getCategories() {
 }
 
 /** GET category fetured videos from API */
-async function getFeatureds() {
+async function getFeaturedVideos() {
   const token = await getToken();
 
   const params = {
@@ -60,7 +67,7 @@ async function getFeatureds() {
 }
 
 /** GET category promoted video from API */
-async function getPromoted() {
+async function getPromotedVideos() {
   const token = await getToken();
 
   const params = {
@@ -73,7 +80,7 @@ async function getPromoted() {
 }
 
 /** GET category latest videos from API */
-async function getLatests() {
+async function getLatestVideos() {
   const token = await getToken();
 
   const params = {
@@ -99,7 +106,7 @@ async function getTopVideos() {
 }
 
 /** GET category "whats-new" videos from API */
-async function getWhatsNew(limit = 12) {
+async function getWhatsNewVideos(limit = 12) {
   const token = await getToken();
 
   const params = {
@@ -137,14 +144,98 @@ async function getPopularVideos(limit = 12) {
   return data;
 }
 
+/** GET category "game" videos from API */
+async function getGameVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_GAME, params);
+
+  return data;
+}
+
+/** GET category "kombat" videos from API */
+async function getKombatVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_KOMBAT, params);
+
+  return data;
+}
+
+/** GET category "music" videos from API */
+async function getMusicVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_MUSIC, params);
+
+  return data;
+}
+
+/** GET category "movie" videos from API */
+async function getMovieVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_MOVIE, params);
+
+  return data;
+}
+
+/** GET category "news" videos from API */
+async function getNewsVideos(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_NEWS, params);
+
+  return data;
+}
+
+/** GET category ${category} videos from API */
+async function getCategoryID(category, limit = 20) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORY_ID(category), params);
+
+  return data;
+}
+
 export {
   getTopCategories,
   getCategories,
-  getFeatureds,
-  getPromoted,
-  getLatests,
+  getFeaturedVideos,
+  getPromotedVideos,
+  getLatestVideos,
   getTopVideos,
-  getWhatsNew,
+  getWhatsNewVideos,
   getFreeVideos,
   getPopularVideos,
+  getGameVideos,
+  getKombatVideos,
+  getMusicVideos,
+  getMovieVideos,
+  getNewsVideos,
+  getCategoryID
 };
