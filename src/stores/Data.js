@@ -78,6 +78,7 @@ class DataStore {
     return toJS(this._categoryVideos);
   }
 
+  /** clear all store */
   @action.bound
   clear = async () => {
     this._topCategories = null;
@@ -94,7 +95,13 @@ class DataStore {
     this._musicVideos = null;
     this._movieVideos = null;
     this._newsVideos = null;
-    this._categoryID = null;
+    this._categoryVideos = null;
+  };
+
+  /** clear */
+  @action.bound
+  clearCategoryVideos = async () => {
+    this._categoryVideos = null;
   };
 
   @action.bound

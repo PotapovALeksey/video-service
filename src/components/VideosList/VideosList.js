@@ -1,14 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
 import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
 import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
+import Loader from '../Loader/Loader';
 import styles from './VideosList.module.css';
 import img from '../../assets/img';
-import PropTypes from 'prop-types';
-// import Container from "react-bootstrap/Container";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
   <div className={styles.wrap}>
@@ -16,8 +18,8 @@ const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
       <h3 className={styles.title}>{title}</h3>
       {buttonLink && <ButtonLink label={buttonLabel} link={buttonLink} />}
     </div>
-    {videos && (
-      <div className={styles.list}>
+    <div className={styles.list}>
+      {videos ? (
         <Row>
           {videos.map(video => (
             <Col
@@ -49,8 +51,10 @@ const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
             </Col>
           ))}
         </Row>
-      </div>
-    )}
+      ) : (
+        <Loader />
+      )}
+    </div>
   </div>
 );
 

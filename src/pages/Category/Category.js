@@ -16,9 +16,18 @@ import styles from './Category.module.css';
 class Category extends Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(id, 'id');
+
     await this.handleClear();
     this.handleGetAllData(id);
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { id } = this.props.match.params;
+    if (prevProps.match.params.id !== id) {
+      console.log(id, 'id');
+      this.props.store.stores.data.clearCategoryVideos();
+      this.handleGetAllData(id);
+    }
   }
 
   handleClear = () => this.props.store.stores.data.clear();
