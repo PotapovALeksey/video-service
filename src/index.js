@@ -1,10 +1,10 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { configure } from 'mobx';
 import rootStore from './stores/RootStore';
-import App from './App';
+import App from './components/App';
 import './grid.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -18,7 +18,7 @@ if (document.getElementById('token')) {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={rootStore}>
-        <App />
+        <Route component={App} />
       </Provider>
     </BrowserRouter>,
     document.getElementById('root'),

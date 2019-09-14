@@ -4,9 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { configure } from 'mobx';
 
-import Home from './pages/Home/Home';
-import Categories from './pages/Categories/Categories';
-import Category from './pages/Category/Category';
+import router from '../router';
 
 configure({ enforceActions: 'observed' });
 
@@ -15,9 +13,9 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/categories/:id" component={Category} />
-        <Route path="/categories" component={Categories} />
+        {router.map(route => (
+          <Route key={route.path} {...route} />
+        ))}
       </Switch>
     );
   }
