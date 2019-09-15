@@ -15,12 +15,12 @@ const TopCategories = ({ topCategories }) => (
       topCategories.map(item => (
         <div className={styles.channelSubscribe} key={item.link}>
           <div className={styles.channelPicture}>
-            <NavLink to={item.link} className={styles.imgLink}>
+            <NavLink to={`/categories/${item.link}`} className={styles.imgLink}>
               <img src={image} alt="" className={styles.image} />
             </NavLink>
           </div>
           <div className={styles.channelContent}>
-            <NavLink to={item.link} className={styles.titleLink}>
+            <NavLink to={`/categories/${item.link}`} className={styles.titleLink}>
               <p className={styles.channelTitle}>{item.name}</p>
             </NavLink>
             <span className={`${styles.text} ${'miniText'}`}>

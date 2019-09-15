@@ -84,14 +84,14 @@ export default class VideosSlider extends React.Component {
               <div className={styles.imageWrap}>
                 <VideoImage
                   img={img}
-                  link={`/videos/${video.link}`}
+                  link={`/watch/${video.link}`}
                   altImg={video.name}
                   like={video.likes_count}
                   duration={video.duration}
                 />
                 <div>
                   <NavLink
-                    to={`/videos/${video.link}`}
+                    to={`/watch/${video.link}`}
                     className={`imgTitleB ${styles.imgTitle}`}
                   >
                     {video.name}

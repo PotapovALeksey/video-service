@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftColumn {
+  width: 49%;
+}
+.rightColumn {
+  width: 49%;
+}
+.img {
+  display: block;
+  max-width: 1000px;
+}

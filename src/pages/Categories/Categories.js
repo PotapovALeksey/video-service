@@ -40,14 +40,15 @@ class Categories extends Component {
       promotedVideo,
       topVideos,
       latestVideos,
-      whatsNewVideos,
       popularVideos,
-      gameVideos,
-      kombatVideos,
-      movieVideos,
-      musicVideos,
-      newsVideos,
-      freeVideos,
+      // whatsNewVideos,
+      // gameVideos,
+      // kombatVideos,
+      // movieVideos,
+      // musicVideos,
+      // newsVideos,
+      // freeVideos,
+      categoryVideosAll,
     } = this.props.store.stores.data;
 
     const isRender =
@@ -56,14 +57,15 @@ class Categories extends Component {
       promotedVideo &&
       topVideos &&
       latestVideos &&
-      whatsNewVideos &&
       popularVideos &&
-      gameVideos &&
-      kombatVideos &&
-      movieVideos &&
-      musicVideos &&
-      newsVideos &&
-      freeVideos;
+      categoryVideosAll;
+    // whatsNewVideos &&
+    // gameVideos &&
+    // kombatVideos &&
+    // movieVideos &&
+    // musicVideos &&
+    // newsVideos &&
+    // freeVideos;
 
     return isRender ? (
       <>
@@ -76,7 +78,15 @@ class Categories extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
-            <VideosSlider
+            {categoryVideosAll.map(({ videos, name, link }) => (
+              <VideosSlider
+                key={link}
+                videos={videos}
+                title={name}
+                link={`categories/${link}`}
+              />
+            ))}
+            {/* <VideosSlider
               videos={whatsNewVideos}
               title={"What's new"}
               link={'categories/whats-new'}
@@ -110,7 +120,7 @@ class Categories extends Component {
               videos={freeVideos}
               title={'Free'}
               link={'categories/free'}
-            />
+            /> */}
           </div>
           <RightSidebar
             promoted={promotedVideo}

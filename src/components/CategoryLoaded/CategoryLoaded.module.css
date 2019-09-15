@@ -1,0 +1,9 @@
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 99;
+  height: 100vh;
+  background-color: rgba(37, 45, 58, 0.7);
+}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const BASE_URL = 'https://leatherfighter.com/';
 const CATEGORIES = 'categories';
 const CATEGORIES_PROMOTED = `${CATEGORIES}/promoted`;
 const CATEGORIES_FEATURED = `${CATEGORIES}/featured`;
@@ -14,11 +15,13 @@ const CATEGORIES_MUSIC = `${CATEGORIES}/music`;
 const CATEGORIES_MOVIE = `${CATEGORIES}/movie`;
 const CATEGORIES_NEWS = `${CATEGORIES}/news`;
 const CATEGORY_ID = category => `${CATEGORIES}/${category}`;
+const VIDEO_ID = id => `videos/${id}`;
 
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
+const CATEGORIES_ALL = `${CATEGORIES}-all`;
 
 const httpClient = axios.create({
-  baseURL: 'http://video.blancweb.com.ua/',
+  baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -210,14 +213,43 @@ async function getNewsVideos(limit = 12) {
 }
 
 /** GET category ${category} videos from API */
-async function getCategoryID(category, limit = 20) {
+async function getCategoryID(category, page = 1, limit = 12) {
   const token = await getToken();
 
   const params = {
     _token: token.default,
     limit,
   };
-  const data = await httpClient.post(CATEGORY_ID(category), params);
+  const data = await httpClient.post(
+    `${BASE_URL}${CATEGORY_ID(category)}?=page=${page}`,
+    params,
+  );
+
+  return data;
+}
+
+/** GET category videos ALL from API */
+async function getCategoryVideosAll(limit = 12) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit,
+  };
+  const data = await httpClient.post(CATEGORIES_ALL, params);
+
+  return data;
+}
+
+/** GET VIDEO by ID from API */
+async function getVideoID(id) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    limit: 0,
+  };
+  const data = await httpClient.post(VIDEO_ID(id), params);
 
   return data;
 }
@@ -237,5 +269,7 @@ export {
   getMusicVideos,
   getMovieVideos,
   getNewsVideos,
-  getCategoryID
+  getCategoryID,
+  getCategoryVideosAll,
+  getVideoID,
 };

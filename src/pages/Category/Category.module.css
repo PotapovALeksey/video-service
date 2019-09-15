@@ -1,13 +1,37 @@
 .content {
-    padding: 40px;
-    border-left: 1px solid rgba(204, 204, 204, 1);
-    border-right: 1px solid rgba(204, 204, 204, 1);
-    max-width: 100%;
-    min-width: 320px;
+  padding: 40px;
+  border-left: 1px solid rgba(204, 204, 204, 1);
+  border-right: 1px solid rgba(204, 204, 204, 1);
+  max-width: 100%;
+  min-width: 320px;
+  position: relative;
+}
+@media (max-width: 1250px) {
+  .content {
+    padding: 40px 20px;
   }
-  @media (max-width: 1250px) {
-    .content {
-      padding: 40px 20px;
-    }
-  }
-  
+}
+
+.loadMore {
+  font-size: 12px;
+  display: block;
+  margin: 0 auto;
+  background-color: transparent;
+  color: rgba(102, 102, 102, 1);
+  font-weight: normal;
+  border-radius: 3px;
+  border: 1px solid rgba(215, 215, 215, 1);
+  padding: 6px 10px 5px 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 200ms all ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.loadMore:hover {
+  background-color: transparent;
+  background: rgba(34, 34, 34, 1);
+  color: rgba(255, 255, 255, 1);
+  border-color: rgba(34, 34, 34, 1);
+}

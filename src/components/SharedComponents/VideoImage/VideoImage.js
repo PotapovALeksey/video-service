@@ -13,7 +13,7 @@ const VideoImage = ({ img, link, altImg, like, duration }) => (
     </NavLink>
     <NavLink
       className={`${styles.iconWrap} ${styles.absolute}`}
-      to={`/videos/${link}`}
+      to={`${link}`}
     >
       <FontAwesomeIcon className={styles.titleIcon} icon={faPlay} />
     </NavLink>

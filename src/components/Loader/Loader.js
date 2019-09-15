@@ -11,15 +11,13 @@ const styles = {
 };
 
 const Loader = ({ load }) => (
-  <div>
-    <FadeLoader
-      css={styles}
-      sizeUnit={'px'}
-      size={100}
-      color={'#36D7B7'}
-      loading={load}
-    />
-  </div>
+  <FadeLoader
+    css={styles}
+    sizeUnit={'px'}
+    size={100}
+    color={'#36D7B7'}
+    loading={load}
+  />
 );
 
 export default Loader;

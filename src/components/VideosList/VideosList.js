@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, createRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -8,55 +8,75 @@ import Col from 'react-bootstrap/Col';
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
 import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
 import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
-import Loader from '../Loader/Loader';
 import styles from './VideosList.module.css';
 import img from '../../assets/img';
 
-const VideosList = ({ videos, title, buttonLabel, buttonLink }) => (
-  <div className={styles.wrap}>
-    <div className={styles.top}>
-      <h3 className={styles.title}>{title}</h3>
-      {buttonLink && <ButtonLink label={buttonLabel} link={buttonLink} />}
-    </div>
-    <div className={styles.list}>
-      {videos ? (
-        <Row>
-          {videos.map(video => (
-            <Col
-              xl={3}
-              // lg={3}
-              md={4}
-              sm={6}
-              xs={6}
-              className={styles.item}
-              key={video.link}
-            >
-              <VideoImage
-                img={img}
-                link={`/videos/${video.link}`}
-                altImg={video.name}
-                like={video.likes_count}
-                duration={video.duration}
-              />
-              <NavLink
-                className={`imgTitleB ${styles.imgTitle}`}
-                to={`/videos/${video.link}`}
-              >
-                {video.name}
-              </NavLink>
-              <ViewsAndComments
-                comments={video.comments_count}
-                views={video.views}
-              />
-            </Col>
-          ))}
-        </Row>
-      ) : (
-        <Loader />
-      )}
-    </div>
-  </div>
-);
+let iterator = 0;
+
+export default class VideosList extends Component {
+  listRef = createRef();
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (this.props.onScroll) {
+      this.props.onScroll(this.listRef.current);
+    }
+  };
+
+  render() {
+    const { videos, title, buttonLabel, buttonLink } = this.props;
+
+    return (
+      <div className={styles.wrap}>
+        <div className={styles.top}>
+          <h3 className={styles.title}>{title}</h3>
+          {buttonLink && <ButtonLink label={buttonLabel} link={buttonLink} />}
+        </div>
+        <div className={styles.list} ref={this.listRef}>
+          {videos && videos.length !== 0 && (
+            <Row>
+              {videos.map(video => (
+                <Col
+                  xl={3}
+                  md={4}
+                  sm={6}
+                  xs={6}
+                  className={styles.item}
+                  key={video.link + ++iterator}
+                >
+                  <VideoImage
+                    img={img}
+                    link={`/watch/${video.link}`}
+                    altImg={video.name}
+                    like={video.likes_count}
+                    duration={video.duration}
+                  />
+                  <NavLink
+                    className={`imgTitleB ${styles.imgTitle}`}
+                    to={`/watch/${video.link}`}
+                  >
+                    {video.name}
+                  </NavLink>
+                  <ViewsAndComments
+                    comments={video.comments_count}
+                    views={video.views}
+                  />
+                </Col>
+              ))}
+            </Row>
+          )}
+        </div>
+      </div>
+    );
+  }
+}
 
 VideosList.propTypes = {
   videos: PropTypes.arrayOf(
@@ -70,5 +90,3 @@ VideosList.propTypes = {
   ).isRequired,
   title: PropTypes.string.isRequired,
 };
-
-export default VideosList;

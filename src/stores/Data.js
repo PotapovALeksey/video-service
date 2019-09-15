@@ -16,7 +16,12 @@ class DataStore {
   @observable _musicVideos = null;
   @observable _movieVideos = null;
   @observable _newsVideos = null;
-  @observable _categoryVideos = null;
+  @observable _categoryVideos = {
+    data: null,
+    loaded: false,
+  };
+  @observable _categoryVideosAll = null;
+  @observable _videoByID = null;
 
   @computed get topCategories() {
     return toJS(this._topCategories);
@@ -73,9 +78,21 @@ class DataStore {
   @computed get newsVideos() {
     return toJS(this._newsVideos);
   }
-
+  /** CATEGORY VIDEO */
   @computed get categoryVideos() {
-    return toJS(this._categoryVideos);
+    return toJS(this._categoryVideos.data);
+  }
+
+  @computed get categoryIsLoaded() {
+    return toJS(this._categoryVideos.loaded);
+  }
+
+  @computed get categoryVideosAll() {
+    return toJS(this._categoryVideosAll);
+  }
+
+  @computed get videoByID() {
+    return toJS(this._videoByID);
   }
 
   /** clear all store */
@@ -95,13 +112,12 @@ class DataStore {
     this._musicVideos = null;
     this._movieVideos = null;
     this._newsVideos = null;
-    this._categoryVideos = null;
-  };
-
-  /** clear */
-  @action.bound
-  clearCategoryVideos = async () => {
-    this._categoryVideos = null;
+    this._categoryVideosAll = null;
+    this._categoryVideos = {
+      data: null,
+      loaded: false,
+    };
+    this._videoByID = null;
   };
 
   @action.bound
@@ -231,11 +247,46 @@ class DataStore {
   };
 
   @action.bound
-  getCategoryID = async category => {
-    const { data } = await httpClient.getCategoryID(category);
+  getCategoryID = async (category, page) => {
+    const { data } = await httpClient.getCategoryID(category, page);
 
     runInAction(() => {
-      this._categoryVideos = data;
+      this._categoryVideos.data = data;
+      this._categoryVideos.loaded = false;
+    });
+  };
+
+  @action.bound
+  getCategoryAddLoading = async (category, page) => {
+    const { data } = await httpClient.getCategoryID(category, page);
+
+    runInAction(() => {
+      this._categoryVideos.data = [...this._categoryVideos.data, ...data];
+    });
+  };
+
+  @action.bound
+  toggleLoadedCategory = async () => {
+    runInAction(() => {
+      this._categoryVideos.loaded = !this._categoryVideos.loaded;
+    });
+  };
+
+  @action.bound
+  getCategoryVideosAll = async () => {
+    const { data } = await httpClient.getCategoryVideosAll();
+
+    runInAction(() => {
+      this._categoryVideosAll = data;
+    });
+  };
+
+  @action.bound
+  getVideoByID = async id => {
+    const { data } = await httpClient.getVideoID(id);
+    console.log(data)
+    runInAction(() => {
+      this._videoByID = data;
     });
   };
 
@@ -269,13 +320,7 @@ class DataStore {
   handleGetCategoriesPage = async () => {
     this.handleMainData();
     // body categories page
-    this.getWhatsNewVideos();
-    this.getGameVideos();
-    this.getKombatVideos();
-    this.getMovieVideos();
-    this.getMusicVideos();
-    this.getNewsVideos();
-    this.getFreeVideos();
+    this.getCategoryVideosAll();
   };
 
   /** GET data "Category" page */
@@ -284,6 +329,14 @@ class DataStore {
     this.handleMainData();
     // body categories page
     this.getCategoryID(category);
+  };
+
+  /** GET data "Video" page */
+  @action.bound
+  handleGetVideoPage = async id => {
+    this.handleMainData();
+    // body categories page
+    this.getVideoByID(id);
   };
 }
 

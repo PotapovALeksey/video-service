@@ -16,6 +16,11 @@ const AsyncCategoriesPage = Loadable({
   loading: Loader,
 });
 
+const AsyncVideoPage = Loadable({
+  loader: () => import('./pages/Video/Video'),
+  loading: Loader,
+});
+
 export default [
   {
     path: '/',
@@ -31,5 +36,10 @@ export default [
     path: '/categories',
     exact: false,
     component: AsyncCategoriesPage,
+  },
+  {
+    path: '/watch/:id',
+    exact: false,
+    component: AsyncVideoPage,
   },
 ];
