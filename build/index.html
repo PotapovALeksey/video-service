@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="/frontend/build/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="token" id="token" content="{{ csrf_token() }}" />
@@ -33,47 +33,48 @@
           for (t in o)
             Object.prototype.hasOwnProperty.call(o, t) && (c[t] = o[t]);
           for (h && h(e); i.length; ) i.shift()();
-          return s.push.apply(s, a || []), l();
+          return l.push.apply(l, a || []), f();
         }
-        function l() {
-          for (var e, t = 0; t < s.length; t++) {
-            for (var r = s[t], n = !0, o = 1; o < r.length; o++) {
+        function f() {
+          for (var e, t = 0; t < l.length; t++) {
+            for (var r = l[t], n = !0, o = 1; o < r.length; o++) {
               var a = r[o];
               0 !== d[a] && (n = !1);
             }
-            n && (s.splice(t--, 1), (e = p((p.s = r[0]))));
+            n && (l.splice(t--, 1), (e = p((p.s = r[0]))));
           }
           return e;
         }
         var r = {},
-          f = { 3: 0 },
+          s = { 3: 0 },
           d = { 3: 0 },
-          s = [];
+          l = [];
         function p(e) {
           if (r[e]) return r[e].exports;
           var t = (r[e] = { i: e, l: !1, exports: {} });
           return c[e].call(t.exports, t, t.exports, p), (t.l = !0), t.exports;
         }
-        (p.e = function(s) {
+        (p.e = function(l) {
           var e = [];
-          f[s]
-            ? e.push(f[s])
-            : 0 !== f[s] &&
-              { 0: 1, 1: 1, 5: 1, 6: 1, 7: 1 }[s] &&
+          s[l]
+            ? e.push(s[l])
+            : 0 !== s[l] &&
+              { 0: 1, 1: 1, 5: 1, 6: 1, 7: 1, 8: 1 }[l] &&
               e.push(
-                (f[s] = new Promise(function(e, n) {
+                (s[l] = new Promise(function(e, n) {
                   for (
                     var t =
-                        '/frontend/build/static/css/' +
-                        ({}[s] || s) +
+                        'frontend/build/static/css/' +
+                        ({}[l] || l) +
                         '.' +
                         {
                           0: 'cdaf15d1',
-                          1: '65879acb',
-                          5: 'c973cbc0',
-                          6: 'ffd6d953',
-                          7: 'b719ae84',
-                        }[s] +
+                          1: '7f863f0e',
+                          5: '773d8228',
+                          6: '7f688f46',
+                          7: 'a59fb7d8',
+                          8: '9a2a7ddd',
+                        }[l] +
                         '.chunk.css',
                       o = p.p + t,
                       r = document.getElementsByTagName('link'),
@@ -96,32 +97,32 @@
                     )
                       return e();
                   }
-                  var l = document.createElement('link');
-                  (l.rel = 'stylesheet'),
-                    (l.type = 'text/css'),
-                    (l.onload = e),
-                    (l.onerror = function(e) {
+                  var f = document.createElement('link');
+                  (f.rel = 'stylesheet'),
+                    (f.type = 'text/css'),
+                    (f.onload = e),
+                    (f.onerror = function(e) {
                       var t = (e && e.target && e.target.src) || o,
                         r = new Error(
-                          'Loading CSS chunk ' + s + ' failed.\n(' + t + ')',
+                          'Loading CSS chunk ' + l + ' failed.\n(' + t + ')',
                         );
                       (r.request = t),
-                        delete f[s],
-                        l.parentNode.removeChild(l),
+                        delete s[l],
+                        f.parentNode.removeChild(f),
                         n(r);
                     }),
-                    (l.href = o),
-                    document.getElementsByTagName('head')[0].appendChild(l);
+                    (f.href = o),
+                    document.getElementsByTagName('head')[0].appendChild(f);
                 }).then(function() {
-                  f[s] = 0;
+                  s[l] = 0;
                 })),
               );
-          var r = d[s];
+          var r = d[l];
           if (0 !== r)
             if (r) e.push(r[2]);
             else {
               var t = new Promise(function(e, t) {
-                r = d[s] = [e, t];
+                r = d[l] = [e, t];
               });
               e.push((r[2] = t));
               var n,
@@ -131,28 +132,29 @@
                 p.nc && o.setAttribute('nonce', p.nc),
                 (o.src =
                   p.p +
-                  '/frontend/build/static/js/' +
-                  ({}[s] || s) +
+                  'frontend/build/static/js/' +
+                  ({}[l] || l) +
                   '.' +
                   {
-                    0: 'f27fc294',
-                    1: '44f39ca8',
-                    5: 'a18a44e6',
-                    6: '9e1e0adf',
-                    7: '283fa720',
-                  }[s] +
+                    0: '03596552',
+                    1: '491d288e',
+                    5: '64622cab',
+                    6: 'f499e800',
+                    7: 'e00853fa',
+                    8: '25f47bef',
+                  }[l] +
                   '.chunk.js');
               var a = new Error();
               n = function(e) {
                 (o.onerror = o.onload = null), clearTimeout(u);
-                var t = d[s];
+                var t = d[l];
                 if (0 !== t) {
                   if (t) {
                     var r = e && ('load' === e.type ? 'missing' : e.type),
                       n = e && e.target && e.target.src;
                     (a.message =
                       'Loading chunk ' +
-                      s +
+                      l +
                       ' failed.\n(' +
                       r +
                       ': ' +
@@ -163,7 +165,7 @@
                       (a.request = n),
                       t[1](a);
                   }
-                  d[s] = void 0;
+                  d[l] = void 0;
                 }
               };
               var u = setTimeout(function() {
@@ -228,9 +230,9 @@
         (t.push = e), (t = t.slice());
         for (var o = 0; o < t.length; o++) e(t[o]);
         var h = n;
-        l();
+        f();
       })([]);</script
-    ><script src="/frontend/build/static/js/4.6504c271.chunk.js"></script
-    ><script src="/frontend/build/static/js/main.362c5b78.chunk.js"></script>
+    ><script src="/frontend/build/static/js/4.85e04e8f.chunk.js"></script
+    ><script src="/frontend/build/static/js/main.529bee9c.chunk.js"></script>
   </body>
 </html>

@@ -9,6 +9,7 @@
 }
 .imgTitle {
   font-size: 14px;
+  display: inline-block;
 }
 .wrapButton {
   position: relative;

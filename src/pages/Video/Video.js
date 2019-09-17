@@ -22,16 +22,13 @@ class Video extends Component {
     this.handleGetAllData(id);
   }
 
-  // async componentDidUpdate(prevProps) {
-  //   const { id } = this.props.match.params;
-  //   if (prevProps.match.params.id !== id) {
-
-  //     const { page } = this.state;
-  //     this.props.store.stores.data.toggleLoadedCategory();
-  //     await this.props.store.stores.data.getCategoryID(id, page);
-  //     this.incrementPage();
-  //   }
-  // }
+  async componentDidUpdate(prevProps) {
+    const { id } = this.props.match.params;
+    if (prevProps.match.params.id !== id) {
+      this.props.store.stores.data.toggleLoadedVideo();
+      await this.props.store.stores.data.getVideoByID(id);
+    }
+  }
 
   handleClear = () => this.props.store.stores.data.clear();
 
@@ -46,8 +43,9 @@ class Video extends Component {
       latestVideos,
       popularVideos,
       videoByID,
+      videoIsLoaded,
     } = this.props.store.stores.data;
-    console.log(videoByID);
+
     const {
       isOpenedSidebar,
       toggleSidebar,
@@ -65,8 +63,6 @@ class Video extends Component {
       videoByID &&
       popularVideos;
 
-    console.log('render', videoByID);
-
     const title = this.props.match.params.id;
 
     return isRender ? (
@@ -81,6 +77,7 @@ class Video extends Component {
           />
           <div className={styles.content}>
             <VideoCard {...videoByID} />
+            {videoIsLoaded && <CategoryLoaded />}
           </div>
           <RightSidebar
             promoted={promotedVideo}

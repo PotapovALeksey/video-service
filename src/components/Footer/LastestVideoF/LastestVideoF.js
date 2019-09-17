@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
-import LikesAndDuration from "../../SharedComponents/LikesAndDuration/LikesAndDuration";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import styles from "./LastestVideoF.module.css";
-import img from "../../../assets/img";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import { WATCH, PREVIEW_IMG } from '../../../middlewars/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+
+import LikesAndDuration from '../../SharedComponents/LikesAndDuration/LikesAndDuration';
+
+import styles from './LastestVideoF.module.css';
 
 const LatestVideoF = ({ videos }) => (
   <ul>
@@ -13,8 +15,11 @@ const LatestVideoF = ({ videos }) => (
       videos.map(video => (
         <li className={styles.item} key={video.link}>
           <div className={styles.picture}>
-            <NavLink className={styles.linkImg} to={`/videos/${video.link}`}>
-              <img src={img} alt={video.name} />
+            <NavLink className={styles.linkImg} to={'/' + WATCH + video.link}>
+              <img
+                src={PREVIEW_IMG + video.preview_images[0]}
+                alt={video.name}
+              />
               <LikesAndDuration duration={video.duration} />
               <div className={styles.iconWrap}>
                 <FontAwesomeIcon icon={faPlay} />
@@ -23,10 +28,7 @@ const LatestVideoF = ({ videos }) => (
           </div>
           <div className={styles.content}>
             <h3 className={styles.title}>
-              <NavLink
-                className={styles.titleLink}
-                to={`/videos/${video.link}`}
-              >
+              <NavLink className={styles.titleLink} to={'/' + WATCH + video.link}>
                 {video.name}
               </NavLink>
             </h3>
@@ -46,9 +48,9 @@ LatestVideoF.propTypes = {
       link: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
-      likes_count: PropTypes.number.isRequired
-    })
-  ).isRequired
+      likes_count: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default LatestVideoF;

@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import styles from "./TopVideos.module.css";
-import img from "../../assets/img";
+import {PREVIEW_IMG, WATCH } from '../../middlewars/api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import LikesAndDate from "../SharedComponents/LikesAndDate/LikesAndDate";
 
+import LikesAndDate from "../SharedComponents/LikesAndDate/LikesAndDate";
 import VideoImage from "../SharedComponents/VideoImage/VideoImage";
+import styles from "./TopVideos.module.css";
 
 const TopVideos = ({ videos }) => (
   <div className={styles.wrap}>
@@ -21,14 +21,13 @@ const TopVideos = ({ videos }) => (
       {videos.map(video => (
         <li className={styles.item} key={video.link}>
           <VideoImage
-            img={img}
-            link={video.link}
+            img={PREVIEW_IMG +  video.preview_images[0]}
+            link={'/' + WATCH + video.link}
             altImg={video.name}
             duration={video.duration}
           />
           <div>
-            {" "}
-            <NavLink className={"imgTitleB"} to={video.link}>
+            <NavLink className={"imgTitleB"} to={'/' + WATCH + video.link}>
               {video.name}
             </NavLink>
           </div>

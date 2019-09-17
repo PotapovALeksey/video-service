@@ -21,7 +21,10 @@ class DataStore {
     loaded: false,
   };
   @observable _categoryVideosAll = null;
-  @observable _videoByID = null;
+  @observable _videoByID = {
+    data: null,
+    loaded: false,
+  };
 
   @computed get topCategories() {
     return toJS(this._topCategories);
@@ -92,7 +95,11 @@ class DataStore {
   }
 
   @computed get videoByID() {
-    return toJS(this._videoByID);
+    return toJS(this._videoByID.data);
+  }
+  
+  @computed get videoIsLoaded() {
+    return toJS(this._videoByID.loaded);
   }
 
   /** clear all store */
@@ -117,7 +124,10 @@ class DataStore {
       data: null,
       loaded: false,
     };
-    this._videoByID = null;
+    this._videoByID = {
+      data: null,
+      loaded: false,
+    };
   };
 
   @action.bound
@@ -284,9 +294,17 @@ class DataStore {
   @action.bound
   getVideoByID = async id => {
     const { data } = await httpClient.getVideoID(id);
-    console.log(data)
+
     runInAction(() => {
-      this._videoByID = data;
+      this._videoByID.data = data;
+      this._videoByID.loaded = false;
+    });
+  };
+
+  @action.bound
+  toggleLoadedVideo = async () => {
+    runInAction(() => {
+      this._videoByID.loaded = !this._videoByID.loaded;
     });
   };
 
@@ -341,3 +359,8 @@ class DataStore {
 }
 
 export default DataStore;
+/**
+import { CATEGORIES_FEATURED, PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { CATEGORIES } from '../../middlewars/api';
+ */
+// PREVIEW_IMG +  video.preview_images[0]

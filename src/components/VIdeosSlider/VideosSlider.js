@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,14 +14,14 @@ import {
 import Button from '../SharedComponents/ButtonLink/ButtonLink';
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
 import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
-import img from '../../assets/img';
+
 import styles from './VIdeosSlider.module.css';
 
 export default class VideosSlider extends React.Component {
   settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 500,    
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
@@ -83,15 +84,15 @@ export default class VideosSlider extends React.Component {
             <div className={styles.item} key={video.link}>
               <div className={styles.imageWrap}>
                 <VideoImage
-                  img={img}
-                  link={`/watch/${video.link}`}
+                  img={PREVIEW_IMG +  video.preview_images[0]}
+                  link={'/' + WATCH + video.link}
                   altImg={video.name}
                   like={video.likes_count}
                   duration={video.duration}
                 />
                 <div>
                   <NavLink
-                    to={`/watch/${video.link}`}
+                    to={'/' + WATCH + video.link}
                     className={`imgTitleB ${styles.imgTitle}`}
                   >
                     {video.name}

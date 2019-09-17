@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { CATEGORIES, PREVIEW_IMG, concatURL } from '../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import styles from './TopCategories.module.css';
-import image from '../../assets/img/min.jpg';
 
 const TopCategories = ({ topCategories }) => (
   <div className={styles.wrap}>
@@ -15,12 +15,22 @@ const TopCategories = ({ topCategories }) => (
       topCategories.map(item => (
         <div className={styles.channelSubscribe} key={item.link}>
           <div className={styles.channelPicture}>
-            <NavLink to={`/categories/${item.link}`} className={styles.imgLink}>
-              <img src={image} alt="" className={styles.image} />
+            <NavLink
+              to={concatURL(CATEGORIES, item.link)}
+              className={styles.imgLink}
+            >
+              <img
+                src={PREVIEW_IMG + item.icon}
+                alt={item.name}
+                className={styles.image}
+              />
             </NavLink>
           </div>
           <div className={styles.channelContent}>
-            <NavLink to={`/categories/${item.link}`} className={styles.titleLink}>
+            <NavLink
+              to={concatURL(CATEGORIES, item.link)}
+              className={styles.titleLink}
+            >
               <p className={styles.channelTitle}>{item.name}</p>
             </NavLink>
             <span className={`${styles.text} ${'miniText'}`}>

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './CategoriesList.module.css';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CATEGORIES, concatURL } from '../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,7 +17,7 @@ const CategoriesList = ({ categories, isFooter }) => (
           <li className={styles.item} key={el.link}>
             <NavLink
               className={`${isFooter ? styles.linkF : styles.link}`}
-              to={`/categories/${el.link}`}
+              to={concatURL(CATEGORIES, el.link)}
             >
               <FontAwesomeIcon className={styles.icon} icon={faAngleRight} />
               {el.name}

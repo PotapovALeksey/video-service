@@ -15,10 +15,17 @@ const CATEGORIES_MUSIC = `${CATEGORIES}/music`;
 const CATEGORIES_MOVIE = `${CATEGORIES}/movie`;
 const CATEGORIES_NEWS = `${CATEGORIES}/news`;
 const CATEGORY_ID = category => `${CATEGORIES}/${category}`;
-const VIDEO_ID = id => `videos/${id}`;
+const WATCH = 'watch/';
+const VIDEOS = 'videos/';
+const VIDEO_ID = id => `${VIDEOS}${id}`;
+const LOGIN = 'login';
 
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
 const CATEGORIES_ALL = `${CATEGORIES}-all`;
+
+const PREVIEW_IMG = `${BASE_URL}preview/`;
+
+const concatURL = (url1, url2) => `${url1}/${url2}`;
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
@@ -254,7 +261,27 @@ async function getVideoID(id) {
   return data;
 }
 
+/** LOGIN */
+async function login(email, password) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    email,
+    password,
+  };
+  const data = await httpClient.post(LOGIN, params);
+
+  return data;
+}
+
 export {
+  CATEGORIES,
+  CATEGORIES_FEATURED,
+  PREVIEW_IMG,
+  VIDEOS,
+  WATCH,
+  concatURL,
   getTopCategories,
   getCategories,
   getFeaturedVideos,
@@ -272,4 +299,5 @@ export {
   getCategoryID,
   getCategoryVideosAll,
   getVideoID,
+  login,
 };

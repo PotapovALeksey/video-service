@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import styles from "./PopularVideos.module.css";
-import image from "../../../assets/img/min.jpg";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import { WATCH, PREVIEW_IMG } from '../../../middlewars/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import styles from './PopularVideos.module.css';
 
 const PopularVideos = ({ videos }) => (
   <ul className={styles.list}>
@@ -12,16 +12,17 @@ const PopularVideos = ({ videos }) => (
       videos.map(video => (
         <li key={video.name} className={styles.item}>
           <div className={styles.picture}>
-            <NavLink className={styles.link} to={`/videos/${video.link}`}>
-              <img src={image} alt={video.name} className={styles.img} />
+            <NavLink className={styles.link} to={'/' + WATCH + video.link}>
+              <img
+                src={PREVIEW_IMG + video.icon}
+                alt={video.name}
+                className={styles.img}
+              />
             </NavLink>
           </div>
           <div className={styles.content}>
             <h3 className={styles.title}>
-              <NavLink
-                to={`/videos/${video.link}`}
-                className={styles.titleLink}
-              >
+              <NavLink to={'/' + WATCH + video.link} className={styles.titleLink}>
                 {video.name}
               </NavLink>
             </h3>
@@ -43,9 +44,9 @@ PopularVideos.propTypes = {
       link: PropTypes.string.isRequired,
       videos_count: PropTypes.number.isRequired,
       views_sum: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default PopularVideos;

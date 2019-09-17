@@ -1,16 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
 import PropTypes from 'prop-types';
 import styles from './PromotedVideo.module.css';
-import img from '../../assets/img/features.jpg';
 
 const PromotedVideo = ({ promoted }) => (
   <div className={styles.wrap}>
-    <NavLink className={styles.link} to={`/videos/${promoted.link}`}>
-      <img className={styles.img} src={img} alt="promoted" />
+    <NavLink className={styles.link} to={'/' + WATCH + promoted.link}>
+      <img
+        className={styles.img}
+        src={PREVIEW_IMG + promoted.preview_images[0]}
+        alt="promoted"
+      />
     </NavLink>
     <div className={styles.content}>
-      <NavLink className={styles.linkTitle} to={`/videos/${promoted.link}`}>
+      <NavLink className={styles.linkTitle} to={'/' + WATCH + promoted.link}>
         {promoted.name}
       </NavLink>
       <div>
@@ -25,6 +29,7 @@ PromotedVideo.propTypes = {
     link: PropTypes.string.isRequired,
     views: PropTypes.number.isRequired,
     created_at: PropTypes.string.isRequired,
+    preview_images: PropTypes.array,
   }),
 };
 

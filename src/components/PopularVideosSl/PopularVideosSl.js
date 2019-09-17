@@ -1,18 +1,18 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import VideoImage from "../SharedComponents/VideoImage/VideoImage";
-import CommentAndDate from "../SharedComponents/CommentAndDate/CommentAndDate";
-import styles from "./PopularVideosSl.module.css";
-import img from "../../assets/img";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
-  faChevronLeft
-} from "@fortawesome/free-solid-svg-icons";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import VideoImage from '../SharedComponents/VideoImage/VideoImage';
+import CommentAndDate from '../SharedComponents/CommentAndDate/CommentAndDate';
+import styles from './PopularVideosSl.module.css';
 
 export default class PopularVideosSl extends React.Component {
   settings = {
@@ -21,38 +21,39 @@ export default class PopularVideosSl extends React.Component {
     speed: 500,
     slidesToShow: 8,
     slidesToScroll: 2,
+    lazy: true,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 6
-        }
+          slidesToShow: 6,
+        },
       },
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 5
-        }
+          slidesToShow: 5,
+        },
       },
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: 4
-        }
+          slidesToShow: 4,
+        },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3
-        }
+          slidesToShow: 3,
+        },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2
-        }
-      }
-    ]
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   slider = React.createRef();
@@ -90,15 +91,15 @@ export default class PopularVideosSl extends React.Component {
             <div className={styles.item} key={video.link}>
               <div className={styles.imageWrap}>
                 <VideoImage
-                  img={img}
-                  link={`/videos/${video.link}`}
+                  img={PREVIEW_IMG + video.preview_images[0]}
+                  link={'/' + WATCH + video.link}
                   altImg={video.name}
                   like={video.likes_count}
                   duration={video.duration}
                 />
                 <div>
                   <NavLink
-                    to={`/videos/${video.link}`}
+                    to={'/' + WATCH + video.link}
                     className={`imgTitleW ${styles.imgTitle}`}
                   >
                     {video.name}
@@ -123,7 +124,7 @@ PopularVideosSl.propTypes = {
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,
-      duration: PropTypes.string.isRequired
-    })
-  ).isRequired
+      duration: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };

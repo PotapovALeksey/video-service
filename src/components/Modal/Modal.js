@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react';
+import * as http from '../../middlewars/api';
 import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 
@@ -10,6 +11,8 @@ export default class Modal extends Component {
   state = {
     email: '',
     password: '',
+    emailError: undefined,
+    passwordErrror: undefined,
   };
 
   backdropRef = createRef();
@@ -42,8 +45,28 @@ export default class Modal extends Component {
     this.props.onClose();
   };
 
-  render() {
+  onSubmit = e => {
+    e.preventDefault();
     const { email, password } = this.state;
+
+    http
+      .login(email, password)
+      .then(console.log)
+      .catch(({ response: { status, data } }) => {
+        if (status === 422) {
+          if (data.errors.email && data.errors.email.length !== 0) {
+            this.setState({ emailError: data.errors.email[0] });
+          }
+
+          if (data.errors.password && data.errors.password.length !== 0) {
+            this.setState({ passwordError: data.errors.email[0] });
+          }
+        }
+      });
+  };
+
+  render() {
+    const { email, password, emailError, passwordError } = this.state;
     return (
       <div
         className={styles.backDrop}
@@ -51,7 +74,7 @@ export default class Modal extends Component {
         onClick={this.handleBackdropClick}
       >
         <div className={styles.content}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={this.onSubmit}>
             <input
               placeholder="Email"
               onChange={this.onChange}
@@ -60,14 +83,16 @@ export default class Modal extends Component {
               className={styles.input}
               defaultValue={email}
             />
+            {emailError && <span>{emailError}</span>}
             <input
               placeholder="Password"
               onChange={this.onChange}
               name="password"
-              type="text"
+              type="password"
               className={styles.input}
               defaultValue={password}
             />
+            {passwordError && <span>{passwordError}</span>}
             <button type="submit" className={styles.button}>
               Submit
             </button>

@@ -22,6 +22,10 @@ class ViewStore {
   @action.bound toggleSidebar() {
     this.openedSidebar = !this.openedSidebar;
   }
+  /** close left sidebar */ 
+  @action.bound closeSidebar() {
+    this.openedSidebar = false;
+  }
   /** modal open*/
   @action.bound closeModal() {
     this.openedModal = false;

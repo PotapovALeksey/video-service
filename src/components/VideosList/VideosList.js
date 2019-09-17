@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +9,6 @@ import VideoImage from '../SharedComponents/VideoImage/VideoImage';
 import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
 import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
 import styles from './VideosList.module.css';
-import img from '../../assets/img';
 
 let iterator = 0;
 
@@ -52,15 +51,15 @@ export default class VideosList extends Component {
                   key={video.link + ++iterator}
                 >
                   <VideoImage
-                    img={img}
-                    link={`/watch/${video.link}`}
+                    img={PREVIEW_IMG +  video.preview_images[0]}
+                    link={'/' + WATCH + video.link}
                     altImg={video.name}
                     like={video.likes_count}
                     duration={video.duration}
                   />
                   <NavLink
                     className={`imgTitleB ${styles.imgTitle}`}
-                    to={`/watch/${video.link}`}
+                    to={'/' + WATCH + video.link}
                   >
                     {video.name}
                   </NavLink>
