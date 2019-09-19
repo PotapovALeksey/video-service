@@ -16,8 +16,8 @@ const TopCategories = ({ topCategories }) => (
         <div className={styles.channelSubscribe} key={item.link}>
           <div className={styles.channelPicture}>
             <NavLink
-              to={concatURL(CATEGORIES, item.link)}
               className={styles.imgLink}
+              to={concatURL(CATEGORIES, item.link)}
             >
               <img
                 src={PREVIEW_IMG + item.icon}

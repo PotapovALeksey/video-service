@@ -59,7 +59,7 @@ export default class Modal extends Component {
           }
 
           if (data.errors.password && data.errors.password.length !== 0) {
-            this.setState({ passwordError: data.errors.email[0] });
+            this.setState({ passwordError: data.errors.password[0] });
           }
         }
       });
@@ -68,37 +68,41 @@ export default class Modal extends Component {
   render() {
     const { email, password, emailError, passwordError } = this.state;
     return (
-      <div
-        className={styles.backDrop}
-        ref={this.backdropRef}
-        onClick={this.handleBackdropClick}
-      >
+      // <div
+      //   className={styles.backDrop}
+      //   ref={this.backdropRef}
+      //   onClick={this.handleBackdropClick}
+      // >
         <div className={styles.content}>
           <form className={styles.form} onSubmit={this.onSubmit}>
-            <input
-              placeholder="Email"
-              onChange={this.onChange}
-              name="email"
-              type="text"
-              className={styles.input}
-              defaultValue={email}
-            />
-            {emailError && <span>{emailError}</span>}
-            <input
-              placeholder="Password"
-              onChange={this.onChange}
-              name="password"
-              type="password"
-              className={styles.input}
-              defaultValue={password}
-            />
-            {passwordError && <span>{passwordError}</span>}
+            <div className={styles.inputWrap}>
+              <input
+                placeholder="Email"
+                onChange={this.onChange}
+                name="email"
+                type="text"
+                className={styles.input}
+                defaultValue={email}
+              />
+              {emailError && <span className={styles.error}>{emailError}</span>}
+            </div>
+            <div className={styles.inputWrap}>
+              <input
+                placeholder="Password"
+                onChange={this.onChange}
+                name="password"
+                type="password"
+                className={styles.input}
+                defaultValue={password}
+              />
+              {passwordError && <span className={styles.error}>{passwordError}</span>}
+            </div>
             <button type="submit" className={styles.button}>
               Submit
             </button>
           </form>
         </div>
-      </div>
+      // </div>
     );
   }
 }

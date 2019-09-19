@@ -81,6 +81,10 @@ button.slick-arrow {
   margin: 0 -8px;
 }
 
+.videoCard .slick-slider {
+  margin: 0 -14px;
+}
+
 /* Sticky header menu */
 div.sticky-inner-wrapper {
   z-index: 99;

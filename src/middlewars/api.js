@@ -25,7 +25,7 @@ const CATEGORIES_ALL = `${CATEGORIES}-all`;
 
 const PREVIEW_IMG = `${BASE_URL}preview/`;
 
-const concatURL = (url1, url2) => `${url1}/${url2}`;
+const concatURL = (url1, url2) => `/${url1}/${url2}`;
 
 const httpClient = axios.create({
   baseURL: BASE_URL,

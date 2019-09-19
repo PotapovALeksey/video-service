@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { PREVIEW_IMG} from '../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import LikesAndDate from '../SharedComponents/LikesAndDate/LikesAndDate';

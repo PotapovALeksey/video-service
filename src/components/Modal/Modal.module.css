@@ -1,4 +1,4 @@
-.backDrop {
+/* .backDrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -6,13 +6,12 @@
   z-index: 99;
   height: 100vh;
   background-color: rgba(37, 45, 58, 0.7);
-}
+} */
 
 .content {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  top: 59px;
+  right: 0;
   max-width: 400px;
   min-width: 320px;
   background-color: rgba(38, 38, 38, 1);
@@ -26,7 +25,6 @@
 }
 
 .input {
-  margin-bottom: 20px;
   box-shadow: none;
   -webkit-box-shadow: none;
   display: block;
@@ -35,7 +33,7 @@
   transition: border-color ease-in-out 0.2s, color ease-in-out 0.2s;
   -webkit-transition: border-color ease-in-out 0.2s, color ease-in-out 0.2s;
   outline: none;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
   border-color: rgba(57, 57, 57, 0);
   background-color: rgba(57, 57, 57, 1);
   color: rgba(153, 153, 153, 1);
@@ -46,6 +44,9 @@
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -webkit-appearance: none;
+}
+.inputWrap {
+  margin-bottom: 20px;
 }
 
 .button {
@@ -64,4 +65,8 @@
   transition: all 200ms ease;
   cursor: pointer;
   border-radius: 2px;
+}
+
+.error {
+  color: red;
 }

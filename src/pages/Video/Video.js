@@ -62,8 +62,7 @@ class Video extends Component {
       latestVideos &&
       videoByID &&
       popularVideos;
-
-    const title = this.props.match.params.id;
+    console.log(videoByID);
 
     return isRender ? (
       <>

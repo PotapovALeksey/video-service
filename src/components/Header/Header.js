@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,6 +15,7 @@ import {
 import { useMediaQuery } from 'react-responsive';
 import Sticky from 'react-stickynode';
 
+import Modal from '../Modal/Modal';
 import logo from '../../assets/img/logl.png';
 import styles from './Header.module.css';
 
@@ -27,8 +29,10 @@ const Planshet = ({ children }) => {
   return isDesktop ? children : null;
 };
 
+@inject('store')
+@observer
 class Header extends Component {
-  state = { inputValue: '', isInputEnable: false };
+  state = { inputValue: '', isInputEnable: false, isOpenedModal: false };
 
   onChange = e => this.setState({ inputValue: e.target.value });
 
@@ -43,8 +47,13 @@ class Header extends Component {
 
   onCliclToggleSidebar = () => this.props.toggleSidebar();
 
+  toggleModal = () =>
+    this.setState({ isOpenedModal: !this.state.isOpenedModal });
+
   render() {
-    const { inputValue, isInputEnable } = this.state;
+    const { inputValue, isInputEnable, isOpenedModal } = this.state;
+
+    // const { closeModal, isOpenedModal } = this.props.store.stores.view;
 
     return (
       <>
@@ -155,12 +164,13 @@ class Header extends Component {
             </div>
             <div className={styles.right}>
               <div className={styles.stickyBlock}>
-                <div className={styles.loginLink} onClick={this.onModalOpen}>
+                <div className={styles.loginLink} onClick={this.toggleModal}>
                   <FontAwesomeIcon className={styles.iconMenu} icon={faUser} />
                   Login
                 </div>
               </div>
             </div>
+            {isOpenedModal && <Modal onClose={this.toggleModal} />}
           </header>
         </Sticky>
         <Sticky top={0} bottomBoundary={9000}>
@@ -222,12 +232,14 @@ class Header extends Component {
             </div>
             <div className={styles.mobileRight}>
               <div className={styles.mobileBlock}>
-                <div className={styles.loginLink} onClick={this.onModalOpen}>
+                <div className={styles.loginLink} onClick={this.toggleModal}>
                   <FontAwesomeIcon className={styles.iconMenu} icon={faUser} />
                   Login
                 </div>
               </div>
             </div>
+
+            {isOpenedModal && <Modal onClose={this.toggleModal} />}
           </header>
         </Sticky>
       </>
