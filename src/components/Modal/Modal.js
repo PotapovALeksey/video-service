@@ -3,7 +3,7 @@ import * as http from '../../middlewars/api';
 import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 
-export default class Modal extends Component {
+class Modal extends Component {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
   };
@@ -15,7 +15,7 @@ export default class Modal extends Component {
     passwordErrror: undefined,
   };
 
-  backdropRef = createRef();
+  linkRedirectRef = createRef();
 
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress);
@@ -51,15 +51,25 @@ export default class Modal extends Component {
 
     http
       .login(email, password)
-      .then(console.log)
-      .catch(({ response: { status, data } }) => {
-        if (status === 422) {
-          if (data.errors.email && data.errors.email.length !== 0) {
-            this.setState({ emailError: data.errors.email[0] });
+      .then(response => {
+        if (response && response.status === 200) {
+          this.linkRedirectRef.current.click();
+        }
+      })
+      .catch(({ response }) => {
+        if (response && response.status === 422) {
+          if (
+            response.data.errors.email &&
+            response.data.errors.email.length !== 0
+          ) {
+            this.setState({ emailError: response.data.errors.email[0] });
           }
 
-          if (data.errors.password && data.errors.password.length !== 0) {
-            this.setState({ passwordError: data.errors.password[0] });
+          if (
+            response.data.errors.password &&
+            response.data.errors.password.length !== 0
+          ) {
+            this.setState({ passwordError: response.data.errors.password[0] });
           }
         }
       });
@@ -68,41 +78,52 @@ export default class Modal extends Component {
   render() {
     const { email, password, emailError, passwordError } = this.state;
     return (
-      // <div
-      //   className={styles.backDrop}
-      //   ref={this.backdropRef}
-      //   onClick={this.handleBackdropClick}
-      // >
-        <div className={styles.content}>
-          <form className={styles.form} onSubmit={this.onSubmit}>
-            <div className={styles.inputWrap}>
-              <input
-                placeholder="Email"
-                onChange={this.onChange}
-                name="email"
-                type="text"
-                className={styles.input}
-                defaultValue={email}
-              />
-              {emailError && <span className={styles.error}>{emailError}</span>}
-            </div>
-            <div className={styles.inputWrap}>
-              <input
-                placeholder="Password"
-                onChange={this.onChange}
-                name="password"
-                type="password"
-                className={styles.input}
-                defaultValue={password}
-              />
-              {passwordError && <span className={styles.error}>{passwordError}</span>}
-            </div>
-            <button type="submit" className={styles.button}>
-              Submit
-            </button>
-          </form>
-        </div>
-      // </div>
+      <div className={styles.content}>
+        <a
+          href="/account"
+          ref={this.linkRedirectRef}
+          style={{ display: 'none' }}
+        ></a>
+        <form className={styles.form} onSubmit={this.onSubmit}>
+          <div className={styles.inputWrap}>
+            <input
+              placeholder="Email"
+              onChange={this.onChange}
+              name="email"
+              type="text"
+              className={styles.input}
+              defaultValue={email}
+            />
+            {emailError && <span className={styles.error}>{emailError}</span>}
+          </div>
+          <div className={styles.inputWrap}>
+            <input
+              placeholder="Password"
+              onChange={this.onChange}
+              name="password"
+              type="password"
+              className={styles.input}
+              defaultValue={password}
+            />
+            {passwordError && (
+              <span className={styles.error}>{passwordError}</span>
+            )}
+          </div>
+          <button type="submit" className={styles.button}>
+            Submit
+          </button>
+          <div className={styles.linkWrap}>
+            <a className={styles.link} href="/register">
+              Register now
+            </a>
+            <a className={styles.link} href="/password/reset">
+              Forgotten password
+            </a>
+          </div>
+        </form>
+      </div>
     );
   }
 }
+
+export default Modal;

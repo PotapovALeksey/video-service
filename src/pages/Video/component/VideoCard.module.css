@@ -17,21 +17,27 @@
   margin-bottom: 30px;
 }
 
+@media (max-width: 767px) {
+  .img {
+    height: auto;
+  }
+}
+
 .title {
   margin-top: 0;
 }
 
-
 .item {
-  height: 150px;
+  height: 110px;
   padding: 0px 14px;
   outline: none;
+  width: 200px !important;
 }
 
 .content {
   display: flex;
   justify-content: space-between;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 .columnLeft,
 .columnRight {

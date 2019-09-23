@@ -26,6 +26,7 @@ class Category extends Component {
 
     await this.handleClear();
     this.handleGetAllData(id);
+    this.scrollTop();
   }
 
   async componentDidUpdate(prevProps) {
@@ -36,8 +37,11 @@ class Category extends Component {
       this.props.store.stores.data.toggleLoadedCategory();
       await this.props.store.stores.data.getCategoryID(id, page);
       this.incrementPage();
+      this.scrollTop();
     }
   }
+
+  scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
   incrementPage = () => this.setState({ page: this.state.page + 1 });
 

@@ -14,7 +14,7 @@ const TopCategories = ({ topCategories }) => (
     {topCategories &&
       topCategories.map(item => (
         <div className={styles.channelSubscribe} key={item.link}>
-          <div className={styles.channelPicture}>
+          {/* <div className={styles.channelPicture}>
             <NavLink
               className={styles.imgLink}
               to={concatURL(CATEGORIES, item.link)}
@@ -25,7 +25,7 @@ const TopCategories = ({ topCategories }) => (
                 className={styles.image}
               />
             </NavLink>
-          </div>
+          </div> */}
           <div className={styles.channelContent}>
             <NavLink
               to={concatURL(CATEGORIES, item.link)}

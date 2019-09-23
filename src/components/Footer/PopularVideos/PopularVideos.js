@@ -11,7 +11,7 @@ const PopularVideos = ({ videos }) => (
     {videos &&
       videos.map(video => (
         <li key={video.name} className={styles.item}>
-          <div className={styles.picture}>
+          {/* <div className={styles.picture}>
             <NavLink className={styles.link} to={'/' + WATCH + video.link}>
               <img
                 src={PREVIEW_IMG + video.icon}
@@ -19,7 +19,7 @@ const PopularVideos = ({ videos }) => (
                 className={styles.img}
               />
             </NavLink>
-          </div>
+          </div> */}
           <div className={styles.content}>
             <h3 className={styles.title}>
               <NavLink to={'/' + WATCH + video.link} className={styles.titleLink}>

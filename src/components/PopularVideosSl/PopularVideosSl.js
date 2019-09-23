@@ -11,7 +11,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
-import CommentAndDate from '../SharedComponents/CommentAndDate/CommentAndDate';
+import LikesAndDate from '../SharedComponents/LikesAndDate/LikesAndDate';
 import styles from './PopularVideosSl.module.css';
 
 export default class PopularVideosSl extends React.Component {
@@ -94,7 +94,7 @@ export default class PopularVideosSl extends React.Component {
                   img={PREVIEW_IMG + video.preview_images[0]}
                   link={'/' + WATCH + video.link}
                   altImg={video.name}
-                  like={video.likes_count}
+                  price={video.price_video}
                   duration={video.duration}
                 />
                 <div>
@@ -105,8 +105,8 @@ export default class PopularVideosSl extends React.Component {
                     {video.name}
                   </NavLink>
                 </div>
-                <CommentAndDate
-                  comments={video.comments_count}
+                <LikesAndDate
+                  likes={video.likes_count}
                   date={video.created_at}
                 />
               </div>
@@ -120,6 +120,7 @@ export default class PopularVideosSl extends React.Component {
 PopularVideosSl.propTypes = {
   videos: PropTypes.arrayOf(
     PropTypes.shape({
+      price: PropTypes.string,
       link: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,

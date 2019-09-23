@@ -93,14 +93,19 @@ export default class VideoCard extends Component {
       title,
     } = this.props;
 
+    const sliderWrapStyle = {
+      maxWidth: preview_images.length * 190 + 'px',
+    };
+
     const { bigImg } = this.state;
 
     this.handleSlidesShow(preview_images);
 
     return (
       <div className={`${styles.wrap} videoCard`}>
+        <h1 className={styles.title}>{title}</h1>
         <img className={styles.img} src={bigImg} alt={title} />
-        <div className={styles.sliderWrap}>
+        <div className={styles.sliderWrap} style={sliderWrapStyle}>
           <button
             className={`${styles.slickButton} ${styles.slickPrev}`}
             onClick={this.previous}
@@ -136,7 +141,6 @@ export default class VideoCard extends Component {
         </div>
         <div className={styles.content}>
           <div className={styles.columnLeft}>
-            <h1 className={styles.title}>{title}</h1>
             <p className={styles.descr}>{descr}</p>
           </div>
           <div className={styles.columnRight}></div>

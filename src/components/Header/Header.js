@@ -10,6 +10,7 @@ import {
   faUser,
   faSearch,
   faSortDown,
+  faImage,
   faEllipsisH,
 } from '@fortawesome/free-solid-svg-icons';
 import { useMediaQuery } from 'react-responsive';
@@ -43,8 +44,6 @@ class Header extends Component {
 
   onModalOpen = () => this.props.openModal();
 
-  // onClickToggleMenu = e => this.props.store.toggleMenu();
-
   onCliclToggleSidebar = () => this.props.toggleSidebar();
 
   toggleModal = () =>
@@ -52,8 +51,6 @@ class Header extends Component {
 
   render() {
     const { inputValue, isInputEnable, isOpenedModal } = this.state;
-
-    // const { closeModal, isOpenedModal } = this.props.store.stores.view;
 
     return (
       <>
@@ -93,28 +90,28 @@ class Header extends Component {
                   <li className={`${styles.item} ${styles.stickyItem}`}>
                     <NavLink
                       className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
-                      to="/"
-                    >
-                      <FontAwesomeIcon
-                        className={styles.iconMenu}
-                        icon={faHome}
-                      />
-                      Home
-                    </NavLink>
-                  </li>
-                  <li className={`${styles.item} ${styles.stickyItem}`}>
-                    <NavLink
-                      className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
-                      to="/"
+                      to="/watch"
                     >
                       <FontAwesomeIcon
                         className={styles.iconMenu}
                         icon={faFilm}
                       />
-                      Video
+                      Videos
                     </NavLink>
                   </li>
                   <li className={`${styles.item} ${styles.stickyItem}`}>
+                    <NavLink
+                      className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
+                      to="/pictures"
+                    >
+                      <FontAwesomeIcon
+                        className={styles.iconMenu}
+                        icon={faImage}
+                      />
+                      Pictures
+                    </NavLink>
+                  </li>
+                  {/* <li className={`${styles.item} ${styles.stickyItem}`}>
                     <NavLink
                       className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
                       to="/"
@@ -125,8 +122,8 @@ class Header extends Component {
                       />
                       Features
                     </NavLink>
-                  </li>
-                  <li className={`${styles.item} ${styles.stickyItem}`}>
+                  </li> */}
+                  {/* <li className={`${styles.item} ${styles.stickyItem}`}>
                     <NavLink
                       className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
                       to="/categories"
@@ -158,7 +155,7 @@ class Header extends Component {
                         </NavLink>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

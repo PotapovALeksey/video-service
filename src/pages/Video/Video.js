@@ -20,6 +20,7 @@ class Video extends Component {
 
     await this.handleClear();
     this.handleGetAllData(id);
+    this.scrollTop();
   }
 
   async componentDidUpdate(prevProps) {
@@ -27,8 +28,11 @@ class Video extends Component {
     if (prevProps.match.params.id !== id) {
       this.props.store.stores.data.toggleLoadedVideo();
       await this.props.store.stores.data.getVideoByID(id);
+      this.scrollTop();
     }
   }
+  
+  scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
   handleClear = () => this.props.store.stores.data.clear();
 
@@ -62,6 +66,7 @@ class Video extends Component {
       latestVideos &&
       videoByID &&
       popularVideos;
+
     console.log(videoByID);
 
     return isRender ? (

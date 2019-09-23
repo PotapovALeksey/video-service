@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
-import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
+import ViewsAndLikes from '../SharedComponents/ViewsAndLikes/ViewsAndLikes';
 import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
 import styles from './VideosList.module.css';
 
@@ -51,10 +51,10 @@ export default class VideosList extends Component {
                   key={video.link + ++iterator}
                 >
                   <VideoImage
-                    img={PREVIEW_IMG +  video.preview_images[0]}
+                    img={PREVIEW_IMG + video.preview_images[0]}
                     link={'/' + WATCH + video.link}
                     altImg={video.name}
-                    like={video.likes_count}
+                    price={video.price_video}
                     duration={video.duration}
                   />
                   <NavLink
@@ -63,8 +63,8 @@ export default class VideosList extends Component {
                   >
                     {video.name}
                   </NavLink>
-                  <ViewsAndComments
-                    comments={video.comments_count}
+                  <ViewsAndLikes
+                    like={video.likes_count}
                     views={video.views}
                   />
                 </Col>
@@ -85,6 +85,7 @@ VideosList.propTypes = {
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,
       duration: PropTypes.string.isRequired,
+      price_video: PropTypes.string,
     }),
   ).isRequired,
   title: PropTypes.string.isRequired,

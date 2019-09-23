@@ -13,7 +13,7 @@ import {
 
 import Button from '../SharedComponents/ButtonLink/ButtonLink';
 import VideoImage from '../SharedComponents/VideoImage/VideoImage';
-import ViewsAndComments from '../SharedComponents/ViewsAndComments/ViewsAndComments';
+import ViewsAndLikes from '../SharedComponents/ViewsAndLikes/ViewsAndLikes';
 
 import styles from './VIdeosSlider.module.css';
 
@@ -21,7 +21,7 @@ export default class VideosSlider extends React.Component {
   settings = {
     dots: false,
     infinite: true,
-    speed: 500,    
+    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
@@ -84,10 +84,10 @@ export default class VideosSlider extends React.Component {
             <div className={styles.item} key={video.link}>
               <div className={styles.imageWrap}>
                 <VideoImage
-                  img={PREVIEW_IMG +  video.preview_images[0]}
+                  img={PREVIEW_IMG + video.preview_images[0]}
                   link={'/' + WATCH + video.link}
                   altImg={video.name}
-                  like={video.likes_count}
+                  price={video.price_video}
                   duration={video.duration}
                 />
                 <div>
@@ -98,11 +98,8 @@ export default class VideosSlider extends React.Component {
                     {video.name}
                   </NavLink>
                 </div>
-                <div className={styles.text}>
-                  {video.descr.slice(0, 83)} ...
-                </div>
-                <ViewsAndComments
-                  comments={video.comments_count}
+                <ViewsAndLikes
+                  like={video.likes_count}
                   views={video.views}
                 />
               </div>
@@ -116,7 +113,7 @@ export default class VideosSlider extends React.Component {
 VideosSlider.propTypes = {
   videos: PropTypes.arrayOf(
     PropTypes.shape({
-      link: PropTypes.string.isRequired,
+      price_video: PropTypes.string,
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,

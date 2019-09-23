@@ -5,7 +5,7 @@ import { WATCH, PREVIEW_IMG } from '../../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
-import LikesAndDuration from '../../SharedComponents/LikesAndDuration/LikesAndDuration';
+import PricesAndDuration from '../../SharedComponents/PricesAndDuration/PricesAndDuration';
 
 import styles from './LastestVideoF.module.css';
 
@@ -20,7 +20,10 @@ const LatestVideoF = ({ videos }) => (
                 src={PREVIEW_IMG + video.preview_images[0]}
                 alt={video.name}
               />
-              <LikesAndDuration duration={video.duration} />
+              <PricesAndDuration
+                price={video.price_video}
+                duration={video.duration}
+              />
               <div className={styles.iconWrap}>
                 <FontAwesomeIcon icon={faPlay} />
               </div>
@@ -28,7 +31,10 @@ const LatestVideoF = ({ videos }) => (
           </div>
           <div className={styles.content}>
             <h3 className={styles.title}>
-              <NavLink className={styles.titleLink} to={'/' + WATCH + video.link}>
+              <NavLink
+                className={styles.titleLink}
+                to={'/' + WATCH + video.link}
+              >
                 {video.name}
               </NavLink>
             </h3>

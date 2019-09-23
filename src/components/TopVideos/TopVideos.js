@@ -25,6 +25,7 @@ const TopVideos = ({ videos }) => (
             link={'/' + WATCH + video.link}
             altImg={video.name}
             duration={video.duration}
+            price={video.price_video}
           />
           <div>
             <NavLink className={"imgTitleB"} to={'/' + WATCH + video.link}>
@@ -41,7 +42,7 @@ const TopVideos = ({ videos }) => (
 TopVideos.propTypes = {
   videos: PropTypes.arrayOf(
     PropTypes.shape({
-      link: PropTypes.string.isRequired,
+      price_video: PropTypes.string,
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,
