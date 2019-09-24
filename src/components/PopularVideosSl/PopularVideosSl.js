@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { WATCH } from '../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
@@ -91,7 +91,7 @@ export default class PopularVideosSl extends React.Component {
             <div className={styles.item} key={video.link}>
               <div className={styles.imageWrap}>
                 <VideoImage
-                  img={PREVIEW_IMG + video.preview_images[0]}
+                  img={video.preview_images && video.preview_images[0]}
                   link={'/' + WATCH + video.link}
                   altImg={video.name}
                   price={video.price_video}

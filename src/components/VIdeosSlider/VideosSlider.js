@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { WATCH, VIEW } from '../../middlewars/api';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -50,8 +50,8 @@ export default class VideosSlider extends React.Component {
   };
 
   render() {
-    const { videos, title, link } = this.props;
-
+    const { videos, title, link, isPicture } = this.props;
+    console.log('link', link);
     return (
       <div className={`${styles.wrap}`}>
         <div className={styles.wrapButton}>
@@ -80,31 +80,62 @@ export default class VideosSlider extends React.Component {
           className={styles.slickList}
           ref={this.slider}
         >
-          {(videos || []).map(video => (
-            <div className={styles.item} key={video.link}>
-              <div className={styles.imageWrap}>
-                <VideoImage
-                  img={PREVIEW_IMG + video.preview_images[0]}
-                  link={'/' + WATCH + video.link}
-                  altImg={video.name}
-                  price={video.price_video}
-                  duration={video.duration}
-                />
-                <div>
-                  <NavLink
-                    to={'/' + WATCH + video.link}
-                    className={`imgTitleB ${styles.imgTitle}`}
-                  >
-                    {video.name}
-                  </NavLink>
+          {(videos || []).map(video => {
+            if (isPicture) {
+              return (
+                <div className={styles.item} key={video.link}>
+                  <div className={styles.imageWrap}>
+                    <VideoImage
+                      img={video.preview_images && video.preview_images[0]}
+                      link={'/' + VIEW + video.link}
+                      altImg={video.name}
+                      price={video.price_pics}
+                      duration={video.duration}
+                      isPicture
+                    />
+                    <div>
+                      <NavLink
+                        to={'/' + VIEW + video.link}
+                        className={`imgTitleB ${styles.imgTitle}`}
+                      >
+                        {video.name}
+                      </NavLink>
+                    </div>
+                    <ViewsAndLikes
+                      like={video.likes_count}
+                      views={video.views}
+                    />
+                  </div>
                 </div>
-                <ViewsAndLikes
-                  like={video.likes_count}
-                  views={video.views}
-                />
-              </div>
-            </div>
-          ))}
+              );
+            } else {
+              return (
+                <div className={styles.item} key={video.link}>
+                  <div className={styles.imageWrap}>
+                    <VideoImage
+                      img={video.preview_images && video.preview_images[0]}
+                      link={'/' + WATCH + video.link}
+                      altImg={video.name}
+                      price={video.price_video}
+                      duration={video.duration}
+                    />
+                    <div>
+                      <NavLink
+                        to={'/' + WATCH + video.link}
+                        className={`imgTitleB ${styles.imgTitle}`}
+                      >
+                        {video.name}
+                      </NavLink>
+                    </div>
+                    <ViewsAndLikes
+                      like={video.likes_count}
+                      views={video.views}
+                    />
+                  </div>
+                </div>
+              );
+            }
+          })}
         </Slider>
       </div>
     );
@@ -114,6 +145,7 @@ VideosSlider.propTypes = {
   videos: PropTypes.arrayOf(
     PropTypes.shape({
       price_video: PropTypes.string,
+      price_pics: PropTypes.string,
       name: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       likes_count: PropTypes.number.isRequired,

@@ -16,6 +16,8 @@ const CATEGORIES_MOVIE = `${CATEGORIES}/movie`;
 const CATEGORIES_NEWS = `${CATEGORIES}/news`;
 const CATEGORY_ID = category => `${CATEGORIES}/${category}`;
 const WATCH = 'watch/';
+const VIEW = 'view/';
+const PICTURES = 'pictures/'
 const VIDEOS = 'videos/';
 const VIDEO_ID = id => `${VIDEOS}${id}`;
 const LOGIN = 'login';
@@ -281,6 +283,8 @@ export {
   PREVIEW_IMG,
   VIDEOS,
   WATCH,
+  PICTURES,
+  VIEW,
   concatURL,
   getTopCategories,
   getCategories,

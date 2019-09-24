@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { WATCH, PREVIEW_IMG } from '../../../middlewars/api';
+import { WATCH } from '../../../middlewars/api';
+import getImage from '../../../const/defaultImage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,7 +18,7 @@ const LatestVideoF = ({ videos }) => (
           <div className={styles.picture}>
             <NavLink className={styles.linkImg} to={'/' + WATCH + video.link}>
               <img
-                src={PREVIEW_IMG + video.preview_images[0]}
+                src={getImage(video.preview_images && video.preview_images[0])}
                 alt={video.name}
               />
               <PricesAndDuration

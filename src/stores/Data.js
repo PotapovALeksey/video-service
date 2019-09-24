@@ -97,7 +97,7 @@ class DataStore {
   @computed get videoByID() {
     return toJS(this._videoByID.data);
   }
-  
+
   @computed get videoIsLoaded() {
     return toJS(this._videoByID.loaded);
   }
@@ -354,6 +354,7 @@ class DataStore {
   handleGetVideoPage = async id => {
     this.handleMainData();
     // body categories page
+    this.getCategoryVideosAll();
     this.getVideoByID(id);
   };
 }

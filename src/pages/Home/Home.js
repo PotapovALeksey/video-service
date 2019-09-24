@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import Banner from '../../components/SharedComponents/Banner/Banner';
 import FeaturedVideos from '../../components/FeaturedVideos/FeaturedVideos';
 import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
 import VideosList from '../../components/VideosList/VideosList';
@@ -58,7 +59,6 @@ class Home extends Component {
       freeVideos &&
       popularVideos;
 
-
     return isRender ? (
       <>
         <Header toggleSidebar={toggleSidebar} openModal={openModal} />
@@ -70,13 +70,14 @@ class Home extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
+            <Banner />
             <FeaturedVideos videos={featuredVideos} />
             <VideosSlider videos={whatsNewVideos} title={"What's new"} />
             <VideosList
               videos={freeVideos}
               title={'Free videos'}
               buttonLabel={'View all'}
-              buttonLink={'/'}
+              buttonLink={'/videos/free'}
             />
           </div>
           <RightSidebar

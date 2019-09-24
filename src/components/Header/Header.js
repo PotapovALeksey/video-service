@@ -90,7 +90,7 @@ class Header extends Component {
                   <li className={`${styles.item} ${styles.stickyItem}`}>
                     <NavLink
                       className={`${styles.menuLink} ${styles.link} ${styles.stickyLink}`}
-                      to="/watch"
+                      to="/videos"
                     >
                       <FontAwesomeIcon
                         className={styles.iconMenu}

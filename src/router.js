@@ -21,6 +21,11 @@ const AsyncVideoPage = Loadable({
   loading: Loader,
 });
 
+const AsyncPicturePage = Loadable({
+  loader: () => import('./pages/Picture/Picture'),
+  loading: Loader,
+});
+
 export default [
   {
     path: '/',
@@ -28,12 +33,12 @@ export default [
     component: AsyncHomePage,
   },
   {
-    path: '/categories/:id',
+    path: '/videos/:id',
     exact: false,
     component: AsyncCategoryPage,
   },
   {
-    path: '/categories',
+    path: '/videos',
     exact: false,
     component: AsyncCategoriesPage,
   },
@@ -41,5 +46,20 @@ export default [
     path: '/watch/:id',
     exact: false,
     component: AsyncVideoPage,
+  },
+  {
+    path: '/pictures/:id',
+    exact: false,
+    component: AsyncCategoryPage,
+  },
+  {
+    path: '/pictures',
+    exact: false,
+    component: AsyncCategoriesPage,
+  },
+  {
+    path: '/view/:id',
+    exact: false,
+    component: AsyncPicturePage,
   },
 ];

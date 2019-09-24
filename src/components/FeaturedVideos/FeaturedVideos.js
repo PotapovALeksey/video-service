@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import getImage from '../../const/defaultImage';
 import ButtonLink from '../SharedComponents/ButtonLink/ButtonLink';
 import { CATEGORIES_FEATURED, PREVIEW_IMG, WATCH } from '../../middlewars/api';
 
@@ -20,7 +21,9 @@ const FeaturedVideos = ({ videos }) => {
               className={styles.linkImg}
             >
               <img
-                src={`${PREVIEW_IMG}${videos[0].preview_images[0]}`}
+                src={getImage(
+                  videos[0].preview_images && videos[0].preview_images[0],
+                )}
                 alt={videos[0].name}
                 className={styles.imgBig}
               />
@@ -51,7 +54,9 @@ const FeaturedVideos = ({ videos }) => {
                 className={styles.linkImg}
               >
                 <img
-                  src={`${PREVIEW_IMG}${videos[1].preview_images[0]}`}
+                  src={getImage(
+                    videos[1].preview_images && videos[1].preview_images[0],
+                  )}
                   alt={videos[1].name}
                   className={styles.img}
                 />
@@ -81,7 +86,9 @@ const FeaturedVideos = ({ videos }) => {
                 className={styles.linkImg}
               >
                 <img
-                  src={`${PREVIEW_IMG}${videos[2].preview_images[0]}`}
+                  src={getImage(
+                    videos[2].preview_images && videos[2].preview_images[0],
+                  )}
                   alt={videos[2].name}
                   className={styles.img}
                 />

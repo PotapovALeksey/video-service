@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { PREVIEW_IMG, WATCH } from '../../middlewars/api';
+import { WATCH, VIEW } from '../../middlewars/api';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -30,7 +30,7 @@ export default class VideosList extends Component {
   };
 
   render() {
-    const { videos, title, buttonLabel, buttonLink } = this.props;
+    const { videos, title, buttonLabel, buttonLink, isPicture } = this.props;
 
     return (
       <div className={styles.wrap}>
@@ -50,23 +50,42 @@ export default class VideosList extends Component {
                   className={styles.item}
                   key={video.link + ++iterator}
                 >
-                  <VideoImage
-                    img={PREVIEW_IMG + video.preview_images[0]}
-                    link={'/' + WATCH + video.link}
-                    altImg={video.name}
-                    price={video.price_video}
-                    duration={video.duration}
-                  />
-                  <NavLink
-                    className={`imgTitleB ${styles.imgTitle}`}
-                    to={'/' + WATCH + video.link}
-                  >
-                    {video.name}
-                  </NavLink>
-                  <ViewsAndLikes
-                    like={video.likes_count}
-                    views={video.views}
-                  />
+                  {isPicture ? (
+                    <>
+                      <VideoImage
+                        isPicture
+                        img={video.preview_images && video.preview_images[0]}
+                        link={'/' + VIEW + video.link}
+                        altImg={video.name}
+                        price={video.price_pics}
+                        duration={video.duration}
+                      />
+                      <NavLink
+                        className={`imgTitleB ${styles.imgTitle}`}
+                        to={'/' + VIEW + video.link}
+                      >
+                        {video.name}
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      <VideoImage
+                        img={video.preview_images && video.preview_images[0]}
+                        link={'/' + WATCH + video.link}
+                        altImg={video.name}
+                        price={video.price_video}
+                        duration={video.duration}
+                      />
+                      <NavLink
+                        className={`imgTitleB ${styles.imgTitle}`}
+                        to={'/' + WATCH + video.link}
+                      >
+                        {video.name}
+                      </NavLink>
+                    </>
+                  )}
+
+                  <ViewsAndLikes like={video.likes_count} views={video.views} />
                 </Col>
               ))}
             </Row>

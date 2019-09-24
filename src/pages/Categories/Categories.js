@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import { PICTURES, VIDEOS } from '../../middlewars/api';
+
+import Banner from '../../components/SharedComponents/Banner/Banner';
 import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -41,13 +44,6 @@ class Categories extends Component {
       topVideos,
       latestVideos,
       popularVideos,
-      // whatsNewVideos,
-      // gameVideos,
-      // kombatVideos,
-      // movieVideos,
-      // musicVideos,
-      // newsVideos,
-      // freeVideos,
       categoryVideosAll,
     } = this.props.store.stores.data;
 
@@ -59,13 +55,8 @@ class Categories extends Component {
       latestVideos &&
       popularVideos &&
       categoryVideosAll;
-    // whatsNewVideos &&
-    // gameVideos &&
-    // kombatVideos &&
-    // movieVideos &&
-    // musicVideos &&
-    // newsVideos &&
-    // freeVideos;
+
+    const isPicture = this.props.location.pathname.includes('pictures');
 
     return isRender ? (
       <>
@@ -78,49 +69,29 @@ class Categories extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
-            {categoryVideosAll.map(({ videos, name, link }) => (
-              <VideosSlider
-                key={link}
-                videos={videos}
-                title={name}
-                link={`categories/${link}`}
-              />
-            ))}
-            {/* <VideosSlider
-              videos={whatsNewVideos}
-              title={"What's new"}
-              link={'categories/whats-new'}
-            />
-            <VideosSlider
-              videos={gameVideos}
-              title={'Game'}
-              link={'categories/game'}
-            />
-            <VideosSlider
-              videos={kombatVideos}
-              title={'Kombat'}
-              link={'categories/kombat'}
-            />
-            <VideosSlider
-              videos={movieVideos}
-              title={'Movie'}
-              link={'categories/movie'}
-            />
-            <VideosSlider
-              videos={musicVideos}
-              title={'Music'}
-              link={'categories/music'}
-            />
-            <VideosSlider
-              videos={newsVideos}
-              title={'News'}
-              link={'categories/news'}
-            />
-            <VideosSlider
-              videos={freeVideos}
-              title={'Free'}
-              link={'categories/free'}
-            /> */}
+            <Banner/>
+            {categoryVideosAll.map(({ videos, name, link }) => {
+              if (isPicture) {
+                return (
+                  <VideosSlider
+                    key={link}
+                    videos={videos}
+                    title={name}
+                    link={`/${PICTURES}${link}`}
+                    isPicture
+                  />
+                );
+              } else {
+                return (
+                  <VideosSlider
+                    key={link}
+                    videos={videos}
+                    title={name}
+                    link={`/${VIDEOS}${link}`}
+                  />
+                );
+              }
+            })}
           </div>
           <RightSidebar
             promoted={promotedVideo}

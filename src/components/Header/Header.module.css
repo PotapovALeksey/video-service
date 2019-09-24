@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.logo {
+  max-width: 173px;
+}
+
 .openSidebar {
   display: none;
 }

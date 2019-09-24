@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { throttle } from '../../utils/debounce';
 
-import Banner from '../../components/SharedComponents/Banner/Banner';
-import VideosList from '../../components/VideosList/VideosList';
+import { PICTURES } from '../../middlewars/api';
+
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
@@ -11,18 +10,14 @@ import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import CategoryLoaded from '../../components/CategoryLoaded/CategoryLoaded';
+import PictureCard from './component/PictureCard';
+import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
 
-import styles from './Category.module.css';
-
-const INITIAL_PAGE = 1;
+import styles from './Picture.module.css';
 
 @inject('store')
 @observer
-class Category extends Component {
-  state = {
-    page: INITIAL_PAGE,
-  };
-
+class Video extends Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
 
@@ -34,32 +29,23 @@ class Category extends Component {
   async componentDidUpdate(prevProps) {
     const { id } = this.props.match.params;
     if (prevProps.match.params.id !== id) {
-      this.setState({ page: INITIAL_PAGE });
-      const { page } = this.state;
-      this.props.store.stores.data.toggleLoadedCategory();
-      await this.props.store.stores.data.getCategoryID(id, page);
-      this.incrementPage();
+      this.props.store.stores.data.toggleLoadedVideo();
+      await this.props.store.stores.data.getVideoByID(id);
+
+      const { videoByID } = this.props.store.stores.data;
+
+      if (videoByID && videoByID.preview_video) {
+        this.props.history.push(`/view/${id}`);
+      }
       this.scrollTop();
     }
   }
 
   scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
-  incrementPage = () => this.setState({ page: this.state.page + 1 });
-
   handleClear = () => this.props.store.stores.data.clear();
 
-  handleGetAllData = category =>
-    this.props.store.stores.data.handleGetCategoryPage(category);
-
-  handleAddLoading = async () => {
-    const { id } = this.props.match.params;
-    const { page } = this.state;
-    await this.props.store.stores.data.getCategoryAddLoading(id, page);
-    this.incrementPage();
-  };
-
-  throthleLoadMore = throttle(this.handleAddLoading, 1000);
+  handleGetAllData = id => this.props.store.stores.data.handleGetVideoPage(id);
 
   render() {
     const {
@@ -68,9 +54,10 @@ class Category extends Component {
       promotedVideo,
       topVideos,
       latestVideos,
-      categoryVideos,
       popularVideos,
-      categoryIsLoaded,
+      videoByID,
+      videoIsLoaded,
+      categoryVideosAll,
     } = this.props.store.stores.data;
 
     const {
@@ -87,11 +74,11 @@ class Category extends Component {
       promotedVideo &&
       topVideos &&
       latestVideos &&
-      (categoryVideos && categoryVideos.length !== 0) &&
+      videoByID &&
+      categoryVideosAll &&
       popularVideos;
 
-    const title = this.props.match.params.id;
-    const isPicture = this.props.location.pathname.includes('pictures');
+    console.log(videoByID);
 
     return isRender ? (
       <>
@@ -104,18 +91,17 @@ class Category extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
-            <Banner />
-            {isPicture ? (
-              <VideosList videos={categoryVideos} title={title} isPicture />
-            ) : (
-              <VideosList videos={categoryVideos} title={title} />
-            )}
-
-            {categoryIsLoaded && <CategoryLoaded />}
-
-            <button className={styles.loadMore} onClick={this.throthleLoadMore}>
-              Load more
-            </button>
+            <PictureCard {...videoByID} />
+            {categoryVideosAll.map(({ videos, name, link }) => (
+              <VideosSlider
+                key={link}
+                videos={videos}
+                title={name}
+                link={`/${PICTURES}${link}`}
+                isPicture
+              />
+            ))}
+            {videoIsLoaded && <CategoryLoaded />}
           </div>
           <RightSidebar
             promoted={promotedVideo}
@@ -135,4 +121,4 @@ class Category extends Component {
     );
   }
 }
-export default Category;
+export default Video;
