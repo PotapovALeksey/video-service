@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { CATEGORIES, PREVIEW_IMG, concatURL } from '../../middlewars/api';
+import { VIDEOS, concatURL } from '../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import styles from './TopCategories.module.css';
@@ -28,7 +28,7 @@ const TopCategories = ({ topCategories }) => (
           </div> */}
           <div className={styles.channelContent}>
             <NavLink
-              to={concatURL(CATEGORIES, item.link)}
+              to={concatURL(VIDEOS, item.link)}
               className={styles.titleLink}
             >
               <p className={styles.channelTitle}>{item.name}</p>

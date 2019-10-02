@@ -1,0 +1,44 @@
+.items {
+  background-color: #eff1f2;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.item {
+  flex-basis: 31%;
+  margin-bottom: 15px;
+}
+
+.link,
+.titleLink {
+  text-decoration: none;
+}
+
+.titleLink {
+  font-size: 11px;
+  color: #134b83;
+  margin-bottom: 7px;
+  display: block;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+}
+
+.img {
+  padding: 3px;
+  border: 1px solid #464646;
+  margin-bottom: 5px;
+}
+
+.text,
+.price {
+  margin-top: 0;
+}
+
+.text {
+  margin-bottom: 5px;
+}

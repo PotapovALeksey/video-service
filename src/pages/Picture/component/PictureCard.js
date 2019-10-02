@@ -94,7 +94,7 @@ export default class VideoCard extends Component {
     } = this.props;
 
     const sliderWrapStyle = {
-      maxWidth: preview_images.length * 190 + 'px',
+      maxWidth: preview_images && preview_images.length * 190 + 'px',
     };
 
     const { bigImg } = this.state;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
+import { configure } from 'mobx';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { configure } from 'mobx';
 import rootStore from './stores/RootStore';
 import App from './components/App';
 import './grid.css';

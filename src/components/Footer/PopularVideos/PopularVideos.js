@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { WATCH, PREVIEW_IMG } from '../../../middlewars/api';
+import { VIDEOS, concatURL } from '../../../middlewars/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import styles from './PopularVideos.module.css';
@@ -22,7 +22,10 @@ const PopularVideos = ({ videos }) => (
           </div> */}
           <div className={styles.content}>
             <h3 className={styles.title}>
-              <NavLink to={'/' + WATCH + video.link} className={styles.titleLink}>
+              <NavLink
+                to={concatURL(VIDEOS, video.link)}
+                className={styles.titleLink}
+              >
                 {video.name}
               </NavLink>
             </h3>

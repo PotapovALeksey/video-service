@@ -1,12 +1,26 @@
 .content {
-  padding: 40px;
+  padding: 20px;
   border-left: 1px solid rgba(204, 204, 204, 1);
   border-right: 1px solid rgba(204, 204, 204, 1);
   max-width: 100%;
+  width: 10000px;
   min-width: 320px;
+  background-color: #f2ecec;
 }
-@media (max-width: 1250px) {
-  .content {
-    padding: 40px 20px;
-  }
+
+.mainImg {
+  margin-bottom: 20px;
+}
+
+.items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  width: 32%;
+}
+
+.bText {
+  text-align: center;
 }

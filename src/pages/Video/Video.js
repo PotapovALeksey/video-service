@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { VIDEOS } from '../../middlewars/api';
+import { VIDEOS, PICTURES, VIEW, concatURL } from '../../middlewars/api';
 
+import ButtonLink from '../../components/SharedComponents/ButtonLink/ButtonLink';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
@@ -20,7 +21,6 @@ import styles from './Video.module.css';
 class Video extends Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
-
     await this.handleClear();
     this.handleGetAllData(id);
     this.scrollTop();
@@ -31,16 +31,39 @@ class Video extends Component {
     if (prevProps.match.params.id !== id) {
       this.props.store.stores.data.toggleLoadedVideo();
       await this.props.store.stores.data.getVideoByID(id);
-
-      const { videoByID } = this.props.store.stores.data;
-
-      if (videoByID && videoByID.preview_images.length === 0) {
-        this.props.history.push(`/watch/${id}`);
-      }
+      // this.redirectToPicture();
 
       this.scrollTop();
     }
   }
+
+  // havePicture = () => {
+  //   const { videoByID } = this.props.store.stores.data;
+
+  //   return (
+  //     videoByID &&
+  //     videoByID.preview_images &&
+  //     videoByID.preview_images.length !== 0
+  //   );
+  // };
+
+  // haveVideo = () => {
+  //   const { videoByID } = this.props.store.stores.data;
+  //   console.log('haveVideo', videoByID);
+  //   return videoByID && videoByID.preview_video ? false : true;
+  // };
+
+  // redirectToPicture = () => {
+  //   const { id } = this.props.match.params;
+
+  //   const haveVideo = this.haveVideo();
+
+  //   console.log('haveVideo', haveVideo);
+
+  //   if (!haveVideo) {
+  //     this.props.history.push(`/view/${id}`);
+  //   }
+  // };
 
   scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
@@ -79,6 +102,12 @@ class Video extends Component {
       categoryVideosAll &&
       popularVideos;
 
+    // const havePagePicture = this.havePicture();
+
+    const { id } = this.props.match.params;
+
+    // this.redirectToPicture();
+
     console.log(videoByID);
 
     return isRender ? (
@@ -92,6 +121,9 @@ class Video extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
+            {/* {havePagePicture && (
+              <ButtonLink label={'Go picture'} link={concatURL(VIEW, id)} />
+            )} */}
             <VideoCard {...videoByID} />
             {categoryVideosAll.map(({ videos, name, link }) => (
               <VideosSlider

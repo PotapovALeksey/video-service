@@ -1,14 +1,17 @@
 .wrap {
   padding: 30px 22px 30px 21px;
-  background-color: rgba(60, 60, 60, 1);
+  background-color: #f2ecec;
 }
 .title {
-  color: #fff;
+  font-weight: bold;
+  color: #134b83;
   margin-top: 0;
+  font-size: 14px;
   margin-bottom: 20px;
 }
 .imgTitle {
   font-size: 14px;
+  color: #134b83;
   display: inline-block;
 }
 .wrapButton {
@@ -25,10 +28,11 @@
   background-color: rgba(68, 68, 68, 1);
   border: 1px solid rgba(102, 102, 102, 1);
   cursor: pointer;
-  padding: 4px 15px;
+  padding: 4px 8px;
   top: -3px;
   transition: 200ms all ease;
   outline: none;
+  font-size: 12px;
 }
 
 .slickButton:hover {
@@ -40,8 +44,8 @@
 }
 
 .slickPrev {
-  left: 135px;
+  left: 115px;
 }
 .slickNext {
-  left: 185px;
+  left: 155px;
 }

@@ -26,6 +26,11 @@ const AsyncPicturePage = Loadable({
   loading: Loader,
 });
 
+const AsyncCardPage = Loadable({
+  loader: () => import('./pages/Card/Card'),
+  loading: Loader,
+});
+
 export default [
   {
     path: '/',
@@ -33,33 +38,38 @@ export default [
     component: AsyncHomePage,
   },
   {
-    path: '/videos/:id',
-    exact: false,
+    path: '/category/:id',
+    exact: true,
     component: AsyncCategoryPage,
   },
-  {
-    path: '/videos',
-    exact: false,
-    component: AsyncCategoriesPage,
-  },
+  // {
+  //   path: '/videos/:id',
+  //   exact: false,
+  //   component: AsyncCategoryPage,
+  // },
+  // {
+  //   path: '/videos',
+  //   exact: false,
+  //   component: AsyncCategoriesPage,
+  // },
   {
     path: '/watch/:id',
     exact: false,
-    component: AsyncVideoPage,
+    component: AsyncCardPage,
   },
-  {
-    path: '/pictures/:id',
-    exact: false,
-    component: AsyncCategoryPage,
-  },
-  {
-    path: '/pictures',
-    exact: false,
-    component: AsyncCategoriesPage,
-  },
-  {
-    path: '/view/:id',
-    exact: false,
-    component: AsyncPicturePage,
-  },
+  // {
+  //   path: '/pictures/:id',
+  //   exact: false,
+  //   component: AsyncCategoryPage,
+  // },
+  // {
+  //   path: '/pictures',
+  //   exact: false,
+  //   component: AsyncCategoriesPage,
+  // },
+  // {
+  //   path: '/view/:id',
+  //   exact: false,
+  //   component: AsyncPicturePage,
+  // },
 ];

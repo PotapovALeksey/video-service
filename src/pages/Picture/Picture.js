@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { PICTURES } from '../../middlewars/api';
+import { VIDEOS, PICTURES, concatURL, WATCH } from '../../middlewars/api';
+
+import ButtonLink from '../../components/SharedComponents/ButtonLink/ButtonLink';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -32,14 +34,35 @@ class Video extends Component {
       this.props.store.stores.data.toggleLoadedVideo();
       await this.props.store.stores.data.getVideoByID(id);
 
-      const { videoByID } = this.props.store.stores.data;
+      // this.redirectToVideo();
 
-      if (videoByID && videoByID.preview_video) {
-        this.props.history.push(`/view/${id}`);
-      }
       this.scrollTop();
     }
   }
+
+  // havePicture = () => {
+  //   const { videoByID } = this.props.store.stores.data;
+
+  //   return (
+  //     videoByID &&
+  //     videoByID.preview_images &&
+  //     videoByID.preview_images.length !== 0
+  //   );
+  // };
+
+  // haveVideo = () => {
+  //   const { videoByID } = this.props.store.stores.data;
+
+  //   return videoByID && videoByID.preview_video;
+  // };
+
+  // redirectToVideo = () => {
+  //   const { id } = this.props.match.params;
+
+  //   if (!this.havePicture()) {
+  //     this.props.history.push(`/watch/${id}`);
+  //   }
+  // };
 
   scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
@@ -78,6 +101,10 @@ class Video extends Component {
       categoryVideosAll &&
       popularVideos;
 
+    // const havePageVideo = this.haveVideo();
+
+    // const { id } = this.props.match.params;
+
     console.log(videoByID);
 
     return isRender ? (
@@ -91,6 +118,9 @@ class Video extends Component {
             isOpenedSidebar={isOpenedSidebar}
           />
           <div className={styles.content}>
+            {/* {havePageVideo && (
+              <ButtonLink label={'Go video'} link={concatURL(WATCH, id)} />
+            )} */}
             <PictureCard {...videoByID} />
             {categoryVideosAll.map(({ videos, name, link }) => (
               <VideosSlider

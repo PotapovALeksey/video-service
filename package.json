@@ -9,6 +9,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.10.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@material-ui/icons": "^4.4.3",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",

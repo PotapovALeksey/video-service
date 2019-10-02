@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-
-import Banner from '../../components/SharedComponents/Banner/Banner';
-import FeaturedVideos from '../../components/FeaturedVideos/FeaturedVideos';
-import VideosSlider from '../../components/VIdeosSlider/VideosSlider';
-import VideosList from '../../components/VideosList/VideosList';
+import { NavLink } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
 import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import Loader from '../../components/Loader/Loader';
-import Modal from '../../components/Modal/Modal';
 
 import styles from './Home.module.css';
 
@@ -18,8 +13,10 @@ import styles from './Home.module.css';
 @observer
 class Home extends Component {
   async componentDidMount() {
+    const { handleGetHomePage } = this.props.store.stores.data;
+
     await this.handleClear();
-    this.handleGetAllData();
+    handleGetHomePage();
   }
   handleClear = () => this.props.store.stores.data.clear();
 
@@ -28,71 +25,60 @@ class Home extends Component {
   };
 
   render() {
-    const {
-      topCategories,
-      categories,
-      promotedVideo,
-      topVideos,
-      latestVideos,
-      featuredVideos,
-      whatsNewVideos,
-      freeVideos,
-      popularVideos,
-    } = this.props.store.stores.data;
+    const { categories } = this.props.store.stores.data;
 
-    const {
-      isOpenedSidebar,
-      toggleSidebar,
-      openModal,
-      closeModal,
-      isOpenedModal,
-    } = this.props.store.stores.view;
-
-    const isRender =
-      topCategories &&
-      categories &&
-      promotedVideo &&
-      topVideos &&
-      latestVideos &&
-      featuredVideos &&
-      whatsNewVideos &&
-      freeVideos &&
-      popularVideos;
+    const isRender = categories;
 
     return isRender ? (
       <>
-        <Header toggleSidebar={toggleSidebar} openModal={openModal} />
-        {isOpenedModal && <Modal onClose={closeModal} />}
+        <Header />
+
         <div className="wrap">
-          <LeftSidebar
-            topCategories={topCategories}
-            categories={categories}
-            isOpenedSidebar={isOpenedSidebar}
-          />
+          <LeftSidebar categories={categories} />
           <div className={styles.content}>
-            <Banner />
-            <FeaturedVideos videos={featuredVideos} />
-            <VideosSlider videos={whatsNewVideos} title={"What's new"} />
-            <VideosList
-              videos={freeVideos}
-              title={'Free videos'}
-              buttonLabel={'View all'}
-              buttonLink={'/videos/free'}
+            <img
+              className={styles.mainImg}
+              src="http://www.female-fighting.net/WebRoot/Store21/Shops/63207256/MediaGallery/newclip.png"
+              alt="mainImage"
             />
+            <div className={styles.items}>
+              <div className={styles.item}>
+                <NavLink to="#" className={styles.itemLink}>
+                  <img
+                    src="https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg"
+                    alt="cat"
+                  />
+                </NavLink>
+              </div>
+              <div className={styles.item}>
+                <NavLink to="#" className={styles.itemLink}>
+                  <img
+                    src="https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg"
+                    alt="cat"
+                  />
+                </NavLink>
+              </div>
+              <div className={styles.item}>
+                <NavLink to="#" className={styles.itemLink}>
+                  <img
+                    src="https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg"
+                    alt="cat"
+                  />
+                </NavLink>
+              </div>
+            </div>
+            <p className={styles.bText}>
+              <strong>Sign up for free</strong> and purchase our{' '}
+              <strong>Great Fighting Content.</strong>
+            </p>
+            <p className={styles.bText}>
+              Immediately download from our collection of{' '}
+              <strong>huge fighting videoclips and photosets.</strong>
+            </p>
           </div>
-          <RightSidebar
-            promoted={promotedVideo}
-            latestVideos={latestVideos}
-            topVideos={topVideos}
-          />
+          <RightSidebar />
         </div>
-        <Footer
-          populars={popularVideos}
-          latests={latestVideos}
-          categories={categories}
-          popularCategories={topCategories}
-        />
-        {/* <SidebarMobileMenu store={ViewStore} /> */}
+        <Footer />
       </>
     ) : (
       <Loader load={!isRender} />

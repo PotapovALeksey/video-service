@@ -8,15 +8,22 @@ import router from '../router';
 
 configure({ enforceActions: 'observed' });
 
+const styles = {
+  width: '1100px',
+  margin: '0 auto',
+};
+
 @observer
 class App extends Component {
   render() {
     return (
-      <Switch>
-        {router.map(route => (
-          <Route key={route.path} {...route} />
-        ))}
-      </Switch>
+      <div style={styles}>
+        <Switch>
+          {router.map(route => (
+            <Route key={route.path} {...route} />
+          ))}
+        </Switch>
+      </div>
     );
   }
 }

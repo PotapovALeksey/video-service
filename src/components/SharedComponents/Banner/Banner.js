@@ -1,8 +1,8 @@
 import React from 'react';
-import img from '../../../assets/img/banner.jpg';
+const BANNER_URL = 'https://leatherfighter.com/preview/banner.jpg'
 
 const Banner = () => (
-  <img alt="banner" src={img} style={{ marginBottom: '25px' }} />
+  <img alt="banner" src={BANNER_URL} style={{ marginBottom: '25px' }} />
 );
 
 export default Banner;

@@ -16,7 +16,7 @@ class DataStore {
   @observable _musicVideos = null;
   @observable _movieVideos = null;
   @observable _newsVideos = null;
-  @observable _categoryVideos = {
+  @observable _categoryID = {
     data: null,
     loaded: false,
   };
@@ -82,12 +82,12 @@ class DataStore {
     return toJS(this._newsVideos);
   }
   /** CATEGORY VIDEO */
-  @computed get categoryVideos() {
-    return toJS(this._categoryVideos.data);
+  @computed get categoryID() {
+    return toJS(this._categoryID.data);
   }
 
   @computed get categoryIsLoaded() {
-    return toJS(this._categoryVideos.loaded);
+    return toJS(this._categoryID.loaded);
   }
 
   @computed get categoryVideosAll() {
@@ -120,7 +120,7 @@ class DataStore {
     this._movieVideos = null;
     this._newsVideos = null;
     this._categoryVideosAll = null;
-    this._categoryVideos = {
+    this._categoryID = {
       data: null,
       loaded: false,
     };
@@ -257,12 +257,12 @@ class DataStore {
   };
 
   @action.bound
-  getCategoryID = async (category, page) => {
-    const { data } = await httpClient.getCategoryID(category, page);
+  getCategoryID = async (category, page, limit = 12) => {
+    const { data } = await httpClient.getCategoryID(category, page, limit);
 
     runInAction(() => {
-      this._categoryVideos.data = data;
-      this._categoryVideos.loaded = false;
+      this._categoryID.data = data;
+      this._categoryID.loaded = false;
     });
   };
 
@@ -271,14 +271,14 @@ class DataStore {
     const { data } = await httpClient.getCategoryID(category, page);
 
     runInAction(() => {
-      this._categoryVideos.data = [...this._categoryVideos.data, ...data];
+      this._categoryID.data = [...this._categoryID.data, ...data];
     });
   };
 
   @action.bound
   toggleLoadedCategory = async () => {
     runInAction(() => {
-      this._categoryVideos.loaded = !this._categoryVideos.loaded;
+      this._categoryID.loaded = !this._categoryID.loaded;
     });
   };
 
@@ -303,65 +303,33 @@ class DataStore {
 
   @action.bound
   toggleLoadedVideo = async () => {
+
     runInAction(() => {
       this._videoByID.loaded = !this._videoByID.loaded;
     });
   };
 
-  /** GET data with leftSD, righSD && footer */
-  @action.bound
-  handleMainData = async () => {
-    // legt SD
-    this.getTopCategories();
-    this.getCategories();
-    // right SD
-    this.getPromotedVideo();
-    this.getTopVideos();
-    this.getLatestVideos();
-    // footer
-    this.getPopularVideos();
-  };
-
   /** GET data "Home" page */
   @action.bound
-  handlGetMainPage = async () => {
-    this.handleMainData();
-
-    // body home page
-    this.getFeaturedVideos();
-    this.getWhatsNewVideos();
-    this.getFreeVideos();
-  };
-
-  /** GET data "Categories" page */
-  @action.bound
-  handleGetCategoriesPage = async () => {
-    this.handleMainData();
-    // body categories page
-    this.getCategoryVideosAll();
+  handleGetHomePage = async () => {
+    this.getCategories();
   };
 
   /** GET data "Category" page */
   @action.bound
-  handleGetCategoryPage = async category => {
-    this.handleMainData();
+  handleGetCategoryPage = async (category, page, limit) => {
+    this.getCategories();
     // body categories page
-    this.getCategoryID(category);
+    this.getCategoryID(category,page,limit);
   };
 
   /** GET data "Video" page */
   @action.bound
   handleGetVideoPage = async id => {
-    this.handleMainData();
-    // body categories page
-    this.getCategoryVideosAll();
+    this.getCategories();
+
     this.getVideoByID(id);
   };
 }
 
 export default DataStore;
-/**
-import { CATEGORIES_FEATURED, PREVIEW_IMG, WATCH } from '../../middlewars/api';
-import { CATEGORIES } from '../../middlewars/api';
- */
-// PREVIEW_IMG +  video.preview_images[0]

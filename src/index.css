@@ -14,9 +14,10 @@ html {
 }
 body {
   font-family: 'Helvetica', Arial, sans-serif;
-  color: #464646;
+  color: #000;
   margin: 0;
-  font-size: 16px;
+  font-size: 12px;
+  background-color: #f2f2f2;
 }
 
 img {
@@ -34,6 +35,17 @@ ul {
   display: flex;
   position: relative;
   min-height: 100vh;
+}
+
+.content {
+  border-left: 1px solid rgba(204, 204, 204, 1);
+  border-right: 1px solid rgba(204, 204, 204, 1);
+  max-width: 100%;
+  min-width: 320px;
+  width: 10000px;
+  position: relative;
+  padding: 20px;
+  background-color: #f2ecec;
 }
 
 /* dissable native slider button */

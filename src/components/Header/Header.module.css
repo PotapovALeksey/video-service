@@ -1,4 +1,20 @@
-.wrap {
+.banner {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 4px 8px;
+  border: 1px solid #666666;
+  border-radius: 5px;
+  color: #666666;
+}
+
+/* OLD  */
+
+/* .wrap {
   background-color: #262626;
   display: flex;
   justify-content: space-between;
@@ -177,7 +193,7 @@
 }
 
 /* mobileMenu */
-.mobileWrap {
+/* .mobileWrap {
   background-color: #262626;
   display: none;
   justify-content: space-between;
@@ -244,4 +260,4 @@
   .mobileWrap {
     display: flex;
   }
-}
+} */
