@@ -78,7 +78,7 @@ class Home extends Component {
           </div>
           <RightSidebar />
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </>
     ) : (
       <Loader load={!isRender} />

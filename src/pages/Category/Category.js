@@ -28,6 +28,7 @@ class Category extends Component {
     const { page, entriesPage } = this.state;
 
     await this.handleClear();
+    this.props.store.stores.data.getSearchedData();
     this.props.store.stores.data.handleGetCategoryPage(id, page, entriesPage);
     this.scrollTop();
   }
@@ -35,6 +36,7 @@ class Category extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const { id } = this.props.match.params;
     const { page, entriesPage } = this.state;
+
     const {
       toggleLoadedCategory,
       handleGetCategoryPage,
@@ -49,28 +51,67 @@ class Category extends Component {
       this.scrollTop();
     }
 
-    if (prevState.entriesPage !== this.state.entriesPage) {
+    if (
+      prevState.entriesPage !== this.state.entriesPage ||
+      prevState.page !== this.state.page
+    ) {
       toggleLoadedCategory();
       await handleGetCategoryPage(id, page, entriesPage);
     }
   }
 
-  onChange = ({ target }) => this.setState({ [target.name]: Number(target.value) });
+  onChange = ({ target }) =>
+    this.setState({ [target.name]: Number(target.value) });
 
   scrollTop = () => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 
   handleClear = () => this.props.store.stores.data.clear();
+
+  createPaginationItems = pagination => {
+    let paginationItems = [];
+    for (
+      let index = pagination.current_page;
+      index <= pagination.last_page;
+      index++
+    ) {
+      paginationItems = [
+        ...paginationItems,
+
+        <span
+          key={index}
+          className={styles.pagItem}
+          style={
+            pagination.current_page === index
+              ? { backgroundColor: '#134b83', color: '#fff' }
+              : null
+          }
+          onClick={() => {
+            console.log('index', index);
+            this.setState({
+              page: index,
+            });
+          }}
+        >
+          {index}
+        </span>,
+      ];
+    }
+
+    return paginationItems;
+  };
 
   render() {
     const {
       categoryID,
       categories,
       categoryIsLoaded,
+      categoryIDPagination,
+      searchData,
     } = this.props.store.stores.data;
-
+    console.log('categoryIDPagination', categoryIDPagination);
     const { entriesPage } = this.state;
 
-    const isRender = categories && categoryID;
+    const isRender = categories && categoryID && categoryIDPagination;
 
     return isRender ? (
       <>
@@ -95,7 +136,16 @@ class Category extends Component {
                     <option>60</option>
                   </select>
                 </div>
-                <p>1 - 60 of 101 results</p>
+                <p>
+                  {categoryIDPagination.current_page *
+                    categoryIDPagination.per_page -
+                    categoryIDPagination.per_page +
+                    1}
+                  -
+                  {categoryIDPagination.current_page *
+                    categoryIDPagination.per_page}{' '}
+                  of {categoryIDPagination.total} results
+                </p>
               </div>
               <div className={styles.right}>
                 <div className={styles.selectWrap}>
@@ -108,27 +158,34 @@ class Category extends Component {
                   </select>
                 </div>
                 <div className={styles.pagination}>
-                  <span className={styles.pagItem}>1</span>
-                  <span className={styles.pagItem}>2</span>
+                  {this.createPaginationItems(categoryIDPagination)}
                 </div>
               </div>
             </div>
             <Cards items={categoryID} />
             <div className={styles.controls}>
               <div className={styles.left}>
-                <p>1 - 60 of 101 results</p>
+                <p>
+                  {categoryIDPagination.current_page *
+                    categoryIDPagination.per_page -
+                    categoryIDPagination.per_page +
+                    1}
+                  -
+                  {categoryIDPagination.current_page *
+                    categoryIDPagination.per_page}{' '}
+                  of {categoryIDPagination.total} results
+                </p>
               </div>
               <div className={styles.right}>
                 <div className={styles.pagination}>
-                  <span className={styles.pagItem}>1</span>
-                  <span className={styles.pagItem}>2</span>
+                  {this.createPaginationItems(categoryIDPagination)}
                 </div>
               </div>
             </div>
           </div>
           <RightSidebar />
         </div>
-        <Footer />
+        <Footer categories={categories} />
         {categoryIsLoaded && <CategoryLoaded />}
       </>
     ) : (

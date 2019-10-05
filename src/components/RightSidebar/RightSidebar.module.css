@@ -15,8 +15,12 @@
   margin-bottom: 3px;
 }
 
-.input {
+.inputWrap {
   margin-bottom: 5px;
+}
+
+.error {
+  color: red;
 }
 
 .link {
@@ -76,7 +80,7 @@
   position: absolute;
   right: 0;
   cursor: pointer;
-  color: #c1c1c1 ;
+  color: #c1c1c1;
   transition: all 200ms ease;
 }
 
@@ -86,5 +90,5 @@
 
 .basketTotal {
   font-size: 15px;
-    font-weight: 600;
+  font-weight: 600;
 }

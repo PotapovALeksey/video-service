@@ -12,16 +12,8 @@ import PopularVideos from './PopularVideos/PopularVideos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
-const inf = [
-  { name: 'About us', link: 'asd1' },
-  { name: 'Get a Video', link: 'asd2' },
-  { name: 'Terms and Privacy', link: 'asd3' },
-  { name: 'For Advertisers', link: 'asd4' },
-  { name: 'Contact Us', link: 'asd5' },
-];
-
-const Footer = () => {
-  return (
+const Footer = ({ categories }) =>
+  console.log(categories) || (
     <footer className={styles.footer}>
       <div className={styles.menu}>
         <div className={styles.item}>
@@ -33,28 +25,22 @@ const Footer = () => {
             Home
           </NavLink>
         </div>
-        <div className={styles.item}>
-          <FontAwesomeIcon
-            className={styles.icon}
-            icon={faAngleDoubleRight}
-          ></FontAwesomeIcon>
-          <NavLink to="/" className={styles.link}>
-            Home
-          </NavLink>
-        </div>
-        <div className={styles.item}>
-          <FontAwesomeIcon
-            className={styles.icon}
-            icon={faAngleDoubleRight}
-          ></FontAwesomeIcon>
-          <NavLink to="/" className={styles.link}>
-            Home
-          </NavLink>
-        </div>
+        {(categories || []).map(item => (
+          <div className={styles.item} key={item.link}>
+            <FontAwesomeIcon
+              className={styles.icon}
+              icon={faAngleDoubleRight}
+            ></FontAwesomeIcon>
+            <NavLink to={`/category/${item.link}`} className={styles.link}>
+              {item.name}
+            </NavLink>
+          </div>
+        ))}
       </div>
-      <p className={styles.text}>Copyright © 2020 leatherfighter.com All rights reserved.</p>
+      <p className={styles.text}>
+        Copyright © 2020 leatherfighter.com All rights reserved.
+      </p>
     </footer>
   );
-};
 
 export default Footer;

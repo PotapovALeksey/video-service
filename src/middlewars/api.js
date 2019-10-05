@@ -17,10 +17,11 @@ const CATEGORIES_NEWS = `${CATEGORIES}/news`;
 const CATEGORY_ID = category => `${CATEGORIES}/${category}`;
 const WATCH = 'watch/';
 const VIEW = 'view/';
-const PICTURES = 'pictures/'
+const PICTURES = 'pictures/';
 const VIDEOS = 'videos/';
 const VIDEO_ID = id => `${VIDEOS}${id}`;
 const LOGIN = 'login';
+const SEARCH = value => `search?q=${value}`;
 
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
 const CATEGORIES_ALL = `${CATEGORIES}-all`;
@@ -277,6 +278,19 @@ async function login(email, password) {
   return data;
 }
 
+/** SEARCH */
+async function search(value = 'a') {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+  };
+
+  const data = await httpClient.get(SEARCH(value), params);
+
+  return data;
+}
+
 export {
   CATEGORIES,
   CATEGORIES_FEATURED,
@@ -304,4 +318,5 @@ export {
   getCategoryVideosAll,
   getVideoID,
   login,
+  search
 };

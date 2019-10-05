@@ -85,7 +85,7 @@ class Card extends Component {
       videoIsLoaded,
     } = this.props.store.stores.data;
     const { bigImg } = this.state;
-    const isRender = videoByID && categories;
+    const isRender = videoByID && categories && categoryID;
 
     console.log('categoryID', categoryID);
     let image;
@@ -146,12 +146,11 @@ class Card extends Component {
                 Customers who bought this product also bought
               </p>
               <PopularVideosSl videos={categoryID} />
-              {/* <Cards items={categoryID} /> */}
             </div>
           </div>
           <RightSidebar />
         </div>
-        <Footer />
+        <Footer categories={categories}/>
         {videoIsLoaded && <CategoryLoaded />}
       </>
     ) : (

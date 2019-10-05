@@ -16,9 +16,11 @@ class DataStore {
   @observable _musicVideos = null;
   @observable _movieVideos = null;
   @observable _newsVideos = null;
+  @observable _searchData = null;
   @observable _categoryID = {
     data: null,
     loaded: false,
+    pagination: null,
   };
   @observable _categoryVideosAll = null;
   @observable _videoByID = {
@@ -86,6 +88,10 @@ class DataStore {
     return toJS(this._categoryID.data);
   }
 
+  @computed get categoryIDPagination() {
+    return toJS(this._categoryID.pagination);
+  }
+
   @computed get categoryIsLoaded() {
     return toJS(this._categoryID.loaded);
   }
@@ -100,6 +106,10 @@ class DataStore {
 
   @computed get videoIsLoaded() {
     return toJS(this._videoByID.loaded);
+  }
+
+  @computed get searchData() {
+    return toJS(this._searchData);
   }
 
   /** clear all store */
@@ -120,14 +130,25 @@ class DataStore {
     this._movieVideos = null;
     this._newsVideos = null;
     this._categoryVideosAll = null;
+    this._searchData = null;
     this._categoryID = {
       data: null,
       loaded: false,
+      pagination: null,
     };
     this._videoByID = {
       data: null,
       loaded: false,
     };
+  };
+
+  @action.bound
+  getSearchedData = async value => {
+    const { data } = await httpClient.search(value);
+    console.log(data);
+    runInAction(() => {
+      this._searchData = data;
+    });
   };
 
   @action.bound
@@ -257,13 +278,21 @@ class DataStore {
   };
 
   @action.bound
-  getCategoryID = async (category, page, limit = 12) => {
-    const { data } = await httpClient.getCategoryID(category, page, limit);
+  setDataCategoryId = APIdata => {
+    const { data, ...pagination } = APIdata;
 
     runInAction(() => {
       this._categoryID.data = data;
       this._categoryID.loaded = false;
+      this._categoryID.pagination = pagination;
     });
+  };
+
+  @action.bound
+  getCategoryID = async (category, page, limit = 12) => {
+    const { data } = await httpClient.getCategoryID(category, page, limit);
+
+    this.setDataCategoryId(data);
   };
 
   @action.bound
@@ -303,7 +332,6 @@ class DataStore {
 
   @action.bound
   toggleLoadedVideo = async () => {
-
     runInAction(() => {
       this._videoByID.loaded = !this._videoByID.loaded;
     });
@@ -320,7 +348,7 @@ class DataStore {
   handleGetCategoryPage = async (category, page, limit) => {
     this.getCategories();
     // body categories page
-    this.getCategoryID(category,page,limit);
+    this.getCategoryID(category, page, limit);
   };
 
   /** GET data "Video" page */
