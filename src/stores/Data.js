@@ -16,7 +16,12 @@ class DataStore {
   @observable _musicVideos = null;
   @observable _movieVideos = null;
   @observable _newsVideos = null;
-  @observable _searchData = null;
+  @observable _breadcrumbs = null;
+  @observable _searchData = {
+    data: null,
+    loaded: false,
+    pagination: null,
+  };
   @observable _categoryID = {
     data: null,
     loaded: false,
@@ -27,6 +32,15 @@ class DataStore {
     data: null,
     loaded: false,
   };
+  @observable _bascket = null;
+
+  @computed get breadcrumbs() {
+    return toJS(this._breadcrumbs);
+  }
+
+  @computed get bascket() {
+    return toJS(this._bascket);
+  }
 
   @computed get topCategories() {
     return toJS(this._topCategories);
@@ -109,7 +123,15 @@ class DataStore {
   }
 
   @computed get searchData() {
-    return toJS(this._searchData);
+    return toJS(this._searchData.data);
+  }
+
+  @computed get searchPagination() {
+    return toJS(this._searchData.pagination);
+  }
+
+  @computed get searchLoaded() {
+    return toJS(this._searchData.loaded);
   }
 
   /** clear all store */
@@ -131,6 +153,7 @@ class DataStore {
     this._newsVideos = null;
     this._categoryVideosAll = null;
     this._searchData = null;
+    this._breadcrumbs = null;
     this._categoryID = {
       data: null,
       loaded: false,
@@ -140,14 +163,54 @@ class DataStore {
       data: null,
       loaded: false,
     };
+    this._searchData = {
+      data: null,
+      loaded: false,
+      pagination: null,
+    };
   };
 
   @action.bound
-  getSearchedData = async value => {
-    const { data } = await httpClient.search(value);
-    console.log(data);
+  fetchBreadcrumbs = async () => {
+    const { data } = await httpClient.breadcrumbs();
+
+
     runInAction(() => {
-      this._searchData = data;
+      this._breadcrumbs = data;
+    });
+  };
+
+  @action.bound
+  getBascket = async () => {
+    const { data } = await httpClient.bascketCheck();
+    
+    runInAction(() => {
+      this._bascket = data;
+    });
+  };
+
+  @action.bound
+  getSearchedData = async (value, page, limit) => {
+    const { data } = await httpClient.search(value, page, limit);
+
+    this.setSearchedData(data);
+  };
+
+  @action.bound
+  loadedSearch = async () => {
+    runInAction(() => {
+      this._searchData.loaded = true;
+    });
+  };
+
+  @action.bound
+  setSearchedData = APIdata => {
+    const { data, ...pagination } = APIdata;
+
+    runInAction(() => {
+      this._searchData.data = data;
+      this._searchData.loaded = false;
+      this._searchData.pagination = pagination;
     });
   };
 
@@ -224,11 +287,11 @@ class DataStore {
   };
 
   @action.bound
-  getPopularVideos = async () => {
-    const { data } = await httpClient.getPopularVideos();
+  getPopularVideos = async limit => {
+    const { data } = await httpClient.getPopularVideos(limit);
 
     runInAction(() => {
-      this._popularVideos = data;
+      this._popularVideos = data.data;
     });
   };
 
@@ -289,25 +352,16 @@ class DataStore {
   };
 
   @action.bound
-  getCategoryID = async (category, page, limit = 12) => {
+  getCategoryID = async (category, page, limit = 15) => {
     const { data } = await httpClient.getCategoryID(category, page, limit);
 
     this.setDataCategoryId(data);
   };
 
   @action.bound
-  getCategoryAddLoading = async (category, page) => {
-    const { data } = await httpClient.getCategoryID(category, page);
-
+  loadedCategory = async () => {
     runInAction(() => {
-      this._categoryID.data = [...this._categoryID.data, ...data];
-    });
-  };
-
-  @action.bound
-  toggleLoadedCategory = async () => {
-    runInAction(() => {
-      this._categoryID.loaded = !this._categoryID.loaded;
+      this._categoryID.loaded = true;
     });
   };
 
@@ -340,7 +394,9 @@ class DataStore {
   /** GET data "Home" page */
   @action.bound
   handleGetHomePage = async () => {
+    const limit = 6;
     this.getCategories();
+    this.getPopularVideos(limit);
   };
 
   /** GET data "Category" page */

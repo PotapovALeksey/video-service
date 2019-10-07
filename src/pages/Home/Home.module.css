@@ -6,10 +6,16 @@
   width: 10000px;
   min-width: 320px;
   background-color: #f2ecec;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .mainImg {
   margin-bottom: 20px;
+  border-radius: 6px;
+  width: 100%;
+  box-shadow: 0 0 2px #00000040;
 }
 
 .items {

@@ -93,64 +93,71 @@ class Card extends Component {
 
     return isRender ? (
       <>
-        <Header />
+        <Header categories={categories} />
         <div className="wrap">
-          <LeftSidebar categories={categories} />
+          <LeftSidebar />
           <div className="content">
-            <div className={styles.cardWrap}>
-              <div className={styles.left}>
-                <img
-                  className={styles.bigImg}
-                  src={bigImg || image}
-                  alt={videoByID.title}
-                />
-                <div className={styles.imgList}>
-                  {videoByID.preview_images.map(img => {
-                    const image = img.includes('http')
-                      ? img
-                      : PREVIEW_IMG + img;
-                    return (
-                      <div
-                        key={image}
-                        className={styles.imgWrap}
-                        onClick={() => this.onClickImage(image)}
-                      >
-                        <img className={styles.img} src={image} key={image} />
-                      </div>
-                    );
-                  })}
+            <div>
+              <div className={styles.cardWrap}>
+                <div className={styles.left}>
+                  <img
+                    className={styles.bigImg}
+                    src={bigImg || image}
+                    alt={videoByID.title}
+                  />
+                  <div className={styles.imgList}>
+                    {videoByID.preview_images.map(img => {
+                      const image = img.includes('http')
+                        ? img
+                        : PREVIEW_IMG + img;
+                      return (
+                        <div
+                          key={image}
+                          className={styles.imgWrap}
+                          onClick={() => this.onClickImage(image)}
+                        >
+                          <img className={styles.img} src={image} key={image} />
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.right}>
-                <h1 className={styles.title}>{videoByID.title}</h1>
-                <p className={styles.desc}>{videoByID.descr}</p>
-                <div className={styles.other}>
-                  <p className={styles.length}>
-                    TOTAL PICS IN SET - {videoByID.preview_images.length} images
-                  </p>
-                  <p className={styles.price}>{videoByID.price_pics}</p>
-                  <div className={styles.controls}>
-                    <button className={styles.button}>
-                      Add to bascket
-                      <FontAwesomeIcon
-                        className={styles.icon}
-                        icon={faShoppingCart}
-                      />
-                    </button>
+                <div className={styles.right}>
+                  <h1 className={styles.title}>{videoByID.title}</h1>
+                  <p
+                    className={styles.desc}
+                    dangerouslySetInnerHTML={{ __html: videoByID.descr }}
+                  ></p>
+                  <div className={styles.other}>
+                    <p className={styles.length}>
+                      TOTAL PICS IN SET - {videoByID.preview_images.length}{' '}
+                      images
+                    </p>
+                    <p className={styles.price}>{videoByID.price_pics}</p>
+                    <div className={styles.controls}>
+                      <button className={styles.button}>
+                        Add to bascket
+                        <FontAwesomeIcon
+                          className={styles.icon}
+                          icon={faShoppingCart}
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className={styles.otherCardWrap}>
+                <p className={styles.bottomT}>
+                  Customers who bought this product also bought
+                </p>
+                <PopularVideosSl videos={categoryID} />
+              </div>
             </div>
-            <div className={styles.otherCardWrap}>
-              <p className={styles.bottomT}>
-                Customers who bought this product also bought
-              </p>
-              <PopularVideosSl videos={categoryID} />
-            </div>
+            <Footer />
           </div>
           <RightSidebar />
         </div>
-        <Footer categories={categories}/>
+
         {videoIsLoaded && <CategoryLoaded />}
       </>
     ) : (

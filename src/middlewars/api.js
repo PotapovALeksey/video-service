@@ -21,7 +21,11 @@ const PICTURES = 'pictures/';
 const VIDEOS = 'videos/';
 const VIDEO_ID = id => `${VIDEOS}${id}`;
 const LOGIN = 'login';
-const SEARCH = value => `search?q=${value}`;
+const SEARCH = value => `search/${value}`;
+const CARD = 'cart';
+const CARD_ADD = `${CARD}/add`;
+const CARD_CHECK = `${CARD}/check`;
+const BREADCRUMBS = 'breadcrumbs';
 
 const TOP_CATEGORIES = `top-${CATEGORIES}`;
 const CATEGORIES_ALL = `${CATEGORIES}-all`;
@@ -228,6 +232,7 @@ async function getCategoryID(category, page = 1, limit = 12) {
 
   const params = {
     _token: token.default,
+    page,
     limit,
   };
   const data = await httpClient.post(
@@ -279,14 +284,76 @@ async function login(email, password) {
 }
 
 /** SEARCH */
-async function search(value = 'a') {
+async function search(value = 'a', page = 1, limit = 15) {
+  const token = await getToken();
+
+  const params = {
+    _token: token.default,
+    page,
+    limit,
+  };
+
+  const data = await httpClient.post(SEARCH(value), params);
+
+  return data;
+}
+
+/** BASKET ADD*/
+async function bascketAdd(productId, productType) {
+  // const token = await getToken();
+
+  const token = {
+    default: 'abc',
+  };
+
+  let savedToken = localStorage.getItem('cart_token');
+
+  if (savedToken === null) {
+    localStorage.setItem('cart_token', token.default);
+  }
+
+  const params = {
+    cart_token: savedToken,
+    product_id: productId,
+    product_type: productType,
+  };
+
+  const data = await httpClient.post(CARD_ADD, params);
+
+  return data;
+}
+
+/** BASKET CHECK*/
+async function bascketCheck() {
+  // const token = await getToken();
+  const token = {
+    default: 'abc',
+  };
+
+  bascketAdd('sequi-neque-assumenda-sed1', 'pics');
+
+  let savedToken = localStorage.getItem('cart_token');
+
+  if (savedToken === null) {
+    localStorage.setItem('cart_token', token.default);
+  }
+
+  const params = {
+    cart_token: savedToken,
+  };
+  const data = await httpClient.post(CARD_CHECK, params);
+
+  return data;
+}
+
+/** BREADCRUMBS*/
+async function breadcrumbs() {
   const token = await getToken();
 
   const params = {
     _token: token.default,
   };
-
-  const data = await httpClient.get(SEARCH(value), params);
+  const data = await httpClient.post(BREADCRUMBS, params);
 
   return data;
 }
@@ -318,5 +385,8 @@ export {
   getCategoryVideosAll,
   getVideoID,
   login,
-  search
+  search,
+  bascketAdd,
+  bascketCheck,
+  breadcrumbs,
 };

@@ -12,10 +12,9 @@ import PopularVideos from './PopularVideos/PopularVideos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
-const Footer = ({ categories }) =>
-  console.log(categories) || (
-    <footer className={styles.footer}>
-      <div className={styles.menu}>
+const Footer = () => (
+  <footer className={styles.footer}>
+    {/* <div className={styles.menu}>
         <div className={styles.item}>
           <FontAwesomeIcon
             className={styles.icon}
@@ -36,11 +35,11 @@ const Footer = ({ categories }) =>
             </NavLink>
           </div>
         ))}
-      </div>
-      <p className={styles.text}>
-        Copyright © 2020 leatherfighter.com All rights reserved.
-      </p>
-    </footer>
-  );
+      </div> */}
+    <p className={styles.text} style={{ textAlign: 'center' }}>
+      Copyright © 2020 leatherfighter.com All rights reserved.
+    </p>
+  </footer>
+);
 
 export default Footer;

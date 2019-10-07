@@ -46,6 +46,13 @@ ul {
   position: relative;
   padding: 20px;
   background-color: #f2ecec;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.active {
+  text-decoration: underline !important;
 }
 
 /* dissable native slider button */

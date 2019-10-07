@@ -9,7 +9,7 @@ import router from '../router';
 configure({ enforceActions: 'observed' });
 
 const styles = {
-  width: '1100px',
+  width: '1200px',
   margin: '0 auto',
 };
 

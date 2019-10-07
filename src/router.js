@@ -11,23 +11,18 @@ const AsyncCategoryPage = Loadable({
   loading: Loader,
 });
 
-const AsyncCategoriesPage = Loadable({
-  loader: () => import('./pages/Categories/Categories'),
-  loading: Loader,
-});
-
-const AsyncVideoPage = Loadable({
-  loader: () => import('./pages/Video/Video'),
-  loading: Loader,
-});
-
-const AsyncPicturePage = Loadable({
-  loader: () => import('./pages/Picture/Picture'),
-  loading: Loader,
-});
-
 const AsyncCardPage = Loadable({
   loader: () => import('./pages/Card/Card'),
+  loading: Loader,
+});
+
+const AsyncSearchPage = Loadable({
+  loader: () => import('./pages/Search/Search'),
+  loading: Loader,
+});
+
+const AsyncFormsPage = Loadable({
+  loader: () => import('./pages/Forms/Forms'),
   loading: Loader,
 });
 
@@ -42,34 +37,30 @@ export default [
     exact: true,
     component: AsyncCategoryPage,
   },
-  // {
-  //   path: '/videos/:id',
-  //   exact: false,
-  //   component: AsyncCategoryPage,
-  // },
-  // {
-  //   path: '/videos',
-  //   exact: false,
-  //   component: AsyncCategoriesPage,
-  // },
+
   {
     path: '/watch/:id',
     exact: false,
     component: AsyncCardPage,
   },
-  // {
-  //   path: '/pictures/:id',
-  //   exact: false,
-  //   component: AsyncCategoryPage,
-  // },
-  // {
-  //   path: '/pictures',
-  //   exact: false,
-  //   component: AsyncCategoriesPage,
-  // },
-  // {
-  //   path: '/view/:id',
-  //   exact: false,
-  //   component: AsyncPicturePage,
-  // },
+  {
+    path: '/search/:id',
+    exact: false,
+    component: AsyncSearchPage,
+  },
+  {
+    path: '/password/reset',
+    exact: false,
+    component: AsyncFormsPage,
+  },
+  {
+    path: '/login',
+    exact: false,
+    component: AsyncFormsPage,
+  },
+  {
+    path: '/register',
+    exact: false,
+    component: AsyncFormsPage,
+  },
 ];

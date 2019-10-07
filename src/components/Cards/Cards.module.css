@@ -2,7 +2,6 @@
   background-color: #eff1f2;
   padding: 8px;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 15px;
 }
@@ -10,6 +9,10 @@
 .item {
   flex-basis: 31%;
   margin-bottom: 15px;
+}
+
+.item:not(:nth-child(3n + 3)) {
+  margin-right: 2%;
 }
 
 .link,
